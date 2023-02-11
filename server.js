@@ -6,6 +6,11 @@ const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 
+const bcrypt = require("bcryptjs");
+const salt = bcrypt.genSaltSync(10);
+
+const cookieSession = require('cookie-session');
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -25,6 +30,35 @@ app.use(
   })
 );
 app.use(express.static('public'));
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSIONKEY1, process.env.SESSIONKEY2],
+}));
+
+/// Redirect every routes except routes in whitelist to /login
+const {checkIdCustomer, checkIdOwner} = require('./db/queries/users.js');
+app.use((req,res, next) => {
+  const userId = req.session.user_id;
+  const whiteList = ["/", "/login", "/register", "/logout"];
+
+  checkIdCustomer(userId).then((data)=>{
+    if (data) {
+      return next();
+    }
+  });
+
+  checkIdOwner(userId).then((data)=>{
+    if (data) {
+      return next();
+    }
+  });
+
+  if (whiteList.includes(req.url)) {
+    return next();
+  }
+
+  res.redirect("/login");
+});
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -46,6 +80,34 @@ app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+const { getUserPassword, getRestaurantOwnerPassword } = require('./db/queries/users.js');
+app.post('/login', (req, res) => {
+  getUserPassword(req.body.email).then((user) => {
+    if (user.hasOwnProperty("password") && bcrypt.compareSync(req.body.password, user.password)) {
+      req.session.user_id = user.id;
+      return res.render('main_page');
+    }
+  });
+
+  getRestaurantOwnerPassword(req.body.email).then((user) => {
+    if (user.hasOwnProperty("password") && bcrypt.compareSync(req.body.password, user.password)) {
+      req.session.user_id = user.id;
+      return res.render('restaurant_page');
+    }
+  });
+
+  // res.redirect("/login");
+});
+
+app.get('/logout', (req, res) => {
+  req.session = null;
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {
