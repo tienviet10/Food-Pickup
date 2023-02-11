@@ -61,16 +61,8 @@ const usersRoutes = require('./routes/users');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/users',(req, res, next)=>{
-  const randNum = Math.random();
-  if (randNum > 0.5) {
-    console.log("first");
-    next();
-    return;
-  }
-  console.log("second");
-  res.redirect('/');
-}, usersRoutes);
+app.use('/users', usersRoutes);
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -96,7 +88,6 @@ app.get('/login', (req, res) => {
     });
   }
   res.render('login');
-
 });
 
 const { getUserByEmail } = require('./db/queries/users.js');
@@ -123,7 +114,14 @@ app.get('/menu-page', (req, res) => {
 });
 
 app.get('/restaurant-order', (req, res) => {
-  res.render('restaurant_page');
+  getUserById(req.session.user_id).then((user) => {
+    if (user.role === 'res') {
+      return res.render('restaurant_page');
+    } else {
+      return res.redirect('/');
+    }
+  });
+  // res.render('restaurant_page');
 });
 
 app.get('/logout', (req, res) => { // TODO: Change to POST request
