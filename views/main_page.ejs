@@ -19,13 +19,23 @@
 
 <body>
   <h1>MAIN PAGE VIEWWWWWW!</h1>
-  <div>Dishes</div>
+  <div>
+    <h2>Menu</h2>
+    <% for (let dish of restaurant) { %>
+      <div>
+        <%= dish.dish_name %>
+          <%= dish.price %>
+            <%= dish.description %>
+      </div>
+      <% } %>
+
+  </div>
   <div>
     <h2>Restaurant Info</h2>
-    <h5><%= restaurant.name %></h5>
-    <h5><%= restaurant.phone_number %></h5>
-    <h5><%= restaurant.address %></h5>
-    <h5><%= restaurant.rating %></h5>
+    <h5><%= restaurant[0].name %></h5>
+    <h5><%= restaurant[0].phone_number %></h5>
+    <h5><%= restaurant[0].address %></h5>
+    <h5><%= restaurant[0].rating %></h5>
   </div>
 
 </body>

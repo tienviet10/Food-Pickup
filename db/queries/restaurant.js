@@ -1,12 +1,13 @@
-const db = require('../connection');
+const db = require("../connection");
 
-const getRestaurantInfo = () => {
-  return db.query('SELECT * FROM restaurants;')
-    .then(data => {
-      return data.rows[0];
+const getRestaurantAndMenuInfo = () => {
+  return db
+    .query(
+      "SELECT restaurants.*, dishes.name as dish_name, dishes.price, dishes.description FROM restaurants JOIN dishes ON restaurants.id = restaurant_id;"
+    )
+    .then((data) => {
+      return data.rows;
     });
 };
 
-
-
-module.exports = { getRestaurantInfo };
+module.exports = { getRestaurantAndMenuInfo };
