@@ -73,16 +73,14 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/register', (req, res) => {
 
+app.get('/register', (req, res) => {
   res.render("registration",);
 });
 
 const { addNewUser } = require('./db/queries/users.js');
 app.post('/register', (req, res) => {
   getUserByEmail(req.body.email).then((user) => {
-    console.log("first");
-    console.log(user);
     if (user) {
       res.send("okay");
     } else {
@@ -94,7 +92,7 @@ app.post('/register', (req, res) => {
           }
         });
     }
-  })
+  });
 
 });
 
@@ -135,8 +133,14 @@ app.post('/login', (req, res) => {
   });
 });
 
+
+const { getRestaurantInfo } = require('./db/queries/restaurant.js');
 app.get('/menu-page', (req, res) => {
-  res.render('main_page');
+  getRestaurantInfo().then((restaurant) => {
+    const templateVar = {restaurant};
+    console.log(templateVar);
+    res.render('main_page',templateVar);
+  });
 });
 
 app.get('/restaurant-order', (req, res) => {
