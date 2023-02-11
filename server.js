@@ -5,10 +5,6 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
-
-const bcrypt = require("bcryptjs");
-const salt = bcrypt.genSaltSync(10);
-
 const cookieSession = require('cookie-session');
 
 const PORT = process.env.PORT || 8080;
@@ -35,33 +31,39 @@ app.use(cookieSession({
   keys: [process.env.SESSIONKEY1, process.env.SESSIONKEY2],
 }));
 
-/// Redirect every routes except routes in whitelist to /login
-const { getUserById } = require('./db/queries/users.js');
-app.use((req, res, next) => {
-  const whiteList = ["/", "/login", "/register", "/logout"];
-  if (whiteList.includes(req.url)) {
-    return next();
-  }
-  getUserById(req.session.user_id).then((data) => {
-    if (data) {
-      return next();
-    }
-    res.redirect("/");
-  });
-});
+
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
+const customersRoutes = require('./routes/customers');
+const restaurantsRoutes = require('./routes/restaurants');
+const { getUserById } = require('./db/queries/users.js');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
+app.use('/api/auth', userApiRoutes);
+app.use('/auth', authRoutes);
+app.use('/customers', (req, res, next) => {
+  getUserById(req.session.user_id).then((data) => {
+    if (data.role === 'cus') {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  });
+}, customersRoutes);
+app.use('/restaurants', (req, res, next)=> {
+  getUserById(req.session.user_id).then((data) => {
+    if (data.role === 'res') {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  });
+}, restaurantsRoutes);
 
 // Note: mount other resources here, using the same pattern above
 
@@ -71,99 +73,6 @@ app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
-});
-
-
-app.get('/register', (req, res) => {
-  res.render("registration",);
-});
-
-const { addNewUser } = require('./db/queries/users.js');
-app.post('/register', (req, res) => {
-  getUserByEmail(req.body.email).then((user) => {
-    if (user) {
-      res.send("okay");
-    } else {
-      const password = bcrypt.hashSync(req.body.password, 10);
-      addNewUser(req.body.name, req.body.email, password, req.body.phone_number)
-        .then(user => {
-          if (user) {
-            res.redirect("/");
-          }
-        });
-    }
-  });
-
-});
-
-app.get('/login', (req, res) => {
-  if (req.session.user_id) {
-    getUserById(req.session.user_id).then((user) => {
-      if (user.role === 'cus') {
-        return res.redirect('/menu-page');
-      }
-
-      if (user.role === 'res') {
-        return res.redirect('/restaurant-order');
-      }
-
-      res.redirect('/login');
-    });
-  }
-  res.render('login');
-});
-
-
-const { getUserByEmail } = require('./db/queries/users.js');
-app.post('/login', (req, res) => {
-  getUserByEmail(req.body.email).then((user) => {
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-      req.session.user_id = user.id;
-
-      if (user.role === 'cus') {
-        return res.redirect('/menu-page');
-      }
-
-      if (user.role === 'res') {
-        return res.redirect('/restaurant-order');
-      }
-    }
-  }).catch((err) => {
-    return res.json({ error: "Email or password was not found!" });
-  });
-});
-
-
-const { getRestaurantAndMenuInfo } = require('./db/queries/restaurant.js');
-app.get('/menu-page', (req, res) => {
-  getRestaurantAndMenuInfo().then((restaurant) => {
-    console.log(restaurant)
-    const templateVar = {restaurant};
-    console.log(templateVar);
-    return res.render('main_page',templateVar);
-  });
-});
-
-const { getOrders } = require('./db/queries/orders');
-app.get('/restaurant-order', (req, res) => {
-  getUserById(req.session.user_id).then((user) => {
-    if (user.role === 'res') {
-      getOrders().then((orders) => {
-        console.log(orders);
-        const templateVars = {
-          orders
-        };
-       return res.render("restaurant_page", templateVars);
-      });
-    } else {
-      return res.redirect('/');
-    }
-  });
-});
-
-app.get('/logout', (req, res) => { // TODO: Change to POST request
-  req.session = null;
-  res.redirect("/");
 });
 
 app.get('*', (req, res) => {
