@@ -1,9 +1,8 @@
 -- Users table seeds here (Example)
 INSERT INTO
-  users (id, name, email, password, phone_number, role)
+  users (name, email, password, phone_number, role)
 VALUES
   (
-    1,
     'Amaal Ali',
     'sebseb@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
@@ -11,7 +10,6 @@ VALUES
     'cus'
   ),
   (
-    2,
     'Khalid Noori',
     'khalidnoori@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
@@ -19,7 +17,6 @@ VALUES
     'cus'
   ),
   (
-    3,
     'Viet Tran',
     'viettran@gmail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
@@ -27,7 +24,6 @@ VALUES
     'cus'
   ),
   (
-    4,
     'Dave John',
     'davejohn@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
@@ -35,7 +31,6 @@ VALUES
     'res'
   ),
   (
-    5,
     'Bob Sam',
     'bobsam@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
@@ -43,7 +38,6 @@ VALUES
     'res'
   ),
   (
-    6,
     'David Boochan',
     'babochaandavid@gmail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',

@@ -1,6 +1,5 @@
 INSERT INTO
   restaurants (
-    id,
     name,
     email,
     phone_number,
@@ -11,7 +10,6 @@ INSERT INTO
   )
 VALUES
   (
-    1,
     'Fusion',
     'fusion@gmail.com',
     '1234567890',
