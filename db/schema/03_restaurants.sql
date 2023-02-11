@@ -8,6 +8,6 @@ CREATE TABLE restaurants (
   address VARCHAR(255) NOT NULL,
   rating SMALLINT,
   url TEXT,
-  owner_id INTEGER REFERENCES restaurant_owners(id) ON DELETE CASCADE,
+  owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   date_established TIMESTAMP DEFAULT NOW()
 );

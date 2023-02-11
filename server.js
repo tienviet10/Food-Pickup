@@ -36,28 +36,18 @@ app.use(cookieSession({
 }));
 
 /// Redirect every routes except routes in whitelist to /login
-const {checkIdCustomer, checkIdOwner} = require('./db/queries/users.js');
-app.use((req,res, next) => {
-  const userId = req.session.user_id;
+const { getUserById } = require('./db/queries/users.js');
+app.use((req, res, next) => {
   const whiteList = ["/", "/login", "/register", "/logout"];
-
-  checkIdCustomer(userId).then((data)=>{
-    if (data) {
-      return next();
-    }
-  });
-
-  checkIdOwner(userId).then((data)=>{
-    if (data) {
-      return next();
-    }
-  });
-
   if (whiteList.includes(req.url)) {
     return next();
   }
-
-  res.redirect("/login");
+  getUserById(req.session.user_id).then((data) => {
+    if (data) {
+      return next();
+    }
+    res.redirect("/");
+  });
 });
 
 // Separated Routes for each Resource
@@ -71,7 +61,16 @@ const usersRoutes = require('./routes/users');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
+app.use('/users',(req, res, next)=>{
+  const randNum = Math.random();
+  if (randNum > 0.5) {
+    console.log("first");
+    next();
+    return;
+  }
+  console.log("second");
+  res.redirect('/');
+}, usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -83,30 +82,56 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
+  if (req.session.user_id) {
+    getUserById(req.session.user_id).then((user) => {
+      if (user.role === 'cus') {
+        return res.redirect('/menu-page');
+      }
+
+      if (user.role === 'res') {
+        return res.redirect('/restaurant-order');
+      }
+
+      res.redirect('/login');
+    });
+  }
   res.render('login');
+
 });
 
-const { getUserPassword, getRestaurantOwnerPassword } = require('./db/queries/users.js');
+const { getUserByEmail } = require('./db/queries/users.js');
 app.post('/login', (req, res) => {
-  getUserPassword(req.body.email).then((user) => {
-    if (user.hasOwnProperty("password") && bcrypt.compareSync(req.body.password, user.password)) {
+  getUserByEmail(req.body.email).then((user) => {
+    if (bcrypt.compareSync(req.body.password, user.password)) {
       req.session.user_id = user.id;
-      return res.render('main_page');
-    }
-  });
 
-  getRestaurantOwnerPassword(req.body.email).then((user) => {
-    if (user.hasOwnProperty("password") && bcrypt.compareSync(req.body.password, user.password)) {
-      req.session.user_id = user.id;
-      return res.render('restaurant_page');
-    }
-  });
+      if (user.role === 'cus') {
+        return res.redirect('/menu-page');
+      }
 
-  // res.redirect("/login");
+      if (user.role === 'res') {
+        return res.redirect('/restaurant-order');
+      }
+    }
+  }).catch((err) => {
+    return res.json({ error: "Email or password was not found!" });
+  });
 });
 
-app.get('/logout', (req, res) => {
+app.get('/menu-page', (req, res) => {
+  res.render('main_page');
+});
+
+app.get('/restaurant-order', (req, res) => {
+  res.render('restaurant_page');
+});
+
+app.get('/logout', (req, res) => { // TODO: Change to POST request
   req.session = null;
+  res.redirect("/");
+});
+
+app.get('*', (req, res) => {
   res.redirect("/");
 });
 
