@@ -22,5 +22,14 @@ const getUserById = (id) => {
     });
 };
 
+const addNewUser = (name, email, password, phone_number) => {
+  return db.query(`INSERT INTO users (name, email, password, phone_number, role)
+VALUES ($1, $2, $3, $4, 'cus')
+RETURNING * ; `, [name, email, password, phone_number])
+    .then(data => {
+      return data.rows[0];
+    });
+};
 
-module.exports = { getUsers, getUserByEmail, getUserById };
+
+module.exports = { getUsers, getUserByEmail, getUserById, addNewUser };

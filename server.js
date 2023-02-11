@@ -73,6 +73,31 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/register', (req, res) => {
+
+  res.render("registration",);
+});
+
+const { addNewUser } = require('./db/queries/users.js');
+app.post('/register', (req, res) => {
+  getUserByEmail(req.body.email).then((user) => {
+    console.log("first");
+    console.log(user);
+    if (user) {
+      res.send("okay");
+    } else {
+      const password = bcrypt.hashSync(req.body.password, 10);
+      addNewUser(req.body.name, req.body.email, password, req.body.phone_number)
+        .then(user => {
+          if (user) {
+            res.redirect("/");
+          }
+        });
+    }
+  })
+
+});
+
 app.get('/login', (req, res) => {
   if (req.session.user_id) {
     getUserById(req.session.user_id).then((user) => {
@@ -89,6 +114,7 @@ app.get('/login', (req, res) => {
   }
   res.render('login');
 });
+
 
 const { getUserByEmail } = require('./db/queries/users.js');
 app.post('/login', (req, res) => {
