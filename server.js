@@ -134,12 +134,13 @@ app.post('/login', (req, res) => {
 });
 
 
-const { getRestaurantInfo } = require('./db/queries/restaurant.js');
+const { getRestaurantAndMenuInfo } = require('./db/queries/restaurant.js');
 app.get('/menu-page', (req, res) => {
-  getRestaurantInfo().then((restaurant) => {
+  getRestaurantAndMenuInfo().then((restaurant) => {
+    console.log(restaurant)
     const templateVar = {restaurant};
     console.log(templateVar);
-    res.render('main_page',templateVar);
+    return res.render('main_page',templateVar);
   });
 });
 
