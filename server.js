@@ -143,15 +143,21 @@ app.get('/menu-page', (req, res) => {
   });
 });
 
+const { getOrders } = require('./db/queries/orders');
 app.get('/restaurant-order', (req, res) => {
   getUserById(req.session.user_id).then((user) => {
     if (user.role === 'res') {
-      return res.render('restaurant_page');
+      getOrders().then((orders) => {
+        console.log(orders);
+        const templateVars = {
+          orders
+        };
+       return res.render("restaurant_page", templateVars);
+      });
     } else {
       return res.redirect('/');
     }
   });
-  // res.render('restaurant_page');
 });
 
 app.get('/logout', (req, res) => { // TODO: Change to POST request
