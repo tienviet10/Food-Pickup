@@ -8,3 +8,4 @@ CREATE TABLE orders (
   status VARCHAR(100) NOT NULL,
   order_date TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
