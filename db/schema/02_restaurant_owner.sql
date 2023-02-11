@@ -1,7 +1,6 @@
--- Drop and recreate Users table (Example)
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS restaurant_owners CASCADE;
 
-CREATE TABLE users (
+CREATE TABLE restaurant_owners (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,

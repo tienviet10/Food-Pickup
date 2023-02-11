@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS dishes CASCADE;
+
+CREATE TABLE dishes (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(6, 2) NOT NULL,
+  url TEXT,
+  description TEXT,
+  active BOOLEAN NOT NULL,
+  restaurant_id INTEGER REFERENCES restaurants(id) ON DELETE CASCADE
+);
