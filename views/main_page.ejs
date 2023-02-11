@@ -13,8 +13,11 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/users.js"></script>
+  <script defer src="/scripts/main_page.js"></script>
 </head>
 
 <body>
@@ -24,9 +27,11 @@
     <% for (let dish of restaurant) { %>
       <div>
         <%= dish.dish_name %>
-          <%= dish.price %>
-            <%= dish.description %>
+        <%= dish.price %>
+        <%= dish.description %>
+        <%= dish.id %>
       </div>
+      <button data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>" data-price="<%= dish.price %>" class="add-cart-btn">Add</button>
       <% } %>
 
   </div>
@@ -37,7 +42,64 @@
     <h5><%= restaurant[0].address %></h5>
     <h5><%= restaurant[0].rating %></h5>
   </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered m-0">
 
+                <thead>
+                  <tr>
+                    <th class="text-center py-3">Dish Name</th>
+                    <th class="text-right py-3">Price</th>
+                    <th class="text-center py-3">Quantity</th>
+                    <th class="text-right py-3">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+
+                </tbody>
+
+              </table>
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+              <div class="mt-4">
+              </div>
+              <div class="d-flex">
+                <div class="text-right mt-4 mr-5">
+
+                </div>
+                <div class="text-right mt-4">
+                  <label class="text-muted font-weight-normal m-0">Total price</label>
+                  <div class="cart-total text-large"><strong>$0</strong></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="cart-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+  </button>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"></script>
 </body>
 
 </html>

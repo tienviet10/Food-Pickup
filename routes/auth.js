@@ -41,16 +41,19 @@ const { addNewUser } = require('../db/queries/users.js');
 router.post('/register', (req, res) => {
   getUserByEmail(req.body.email).then((user) => {
     if (user) {
-      res.send("okay");
+      res.send("Exist"); // TODO: if users exist -> maybe redirect to the login page with an error
     } else {
       const password = bcrypt.hashSync(req.body.password, salt);
-      addNewUser(req.body.name, req.body.email, password, req.body.phone_number)
+      return addNewUser(req.body.name, req.body.email, password, req.body.phone_number)
         .then(user => {
           if (user) {
             res.redirect("/");
           }
         });
     }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/register'); // TODO: display with errors
   });
 });
 

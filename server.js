@@ -31,39 +31,21 @@ app.use(cookieSession({
   keys: [process.env.SESSIONKEY1, process.env.SESSIONKEY2],
 }));
 
-
-
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const authRoutes = require('./routes/auth');
 const customersRoutes = require('./routes/customers');
 const restaurantsRoutes = require('./routes/restaurants');
-const { getUserById } = require('./db/queries/users.js');
+const { auth } = require('./helpers/auth');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/auth', userApiRoutes);
 app.use('/auth', authRoutes);
-app.use('/customers', (req, res, next) => {
-  getUserById(req.session.user_id).then((data) => {
-    if (data.role === 'cus') {
-      next();
-    } else {
-      res.redirect('/');
-    }
-  });
-}, customersRoutes);
-app.use('/restaurants', (req, res, next)=> {
-  getUserById(req.session.user_id).then((data) => {
-    if (data.role === 'res') {
-      next();
-    } else {
-      res.redirect('/');
-    }
-  });
-}, restaurantsRoutes);
+app.use('/customers', auth("cus"), customersRoutes);
+app.use('/restaurants', auth("res"), restaurantsRoutes);
 
 // Note: mount other resources here, using the same pattern above
 
