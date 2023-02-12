@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Users</title>
 
-<head>
-  <title>Users</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/users.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/users.js"></script>
-</head>
-
-<body>
-  <h1>RESTAURANT VIEWWWWWW!</h1>
-  <% for (let order of orders) { %>
+  <body>
+    <h1>RESTAURANT VIEWWWWWW!</h1>
+    <% for (let order in cleanOrders) { %>
     <div>
-      <%= order.order_id %>
-        <%= order.dish_name %>
-          <%= order.quantity %>
-            <%= order.customer_name %>
+      <%= order %> <%= cleanOrders[order]['customer_name'] %> <%=
+      cleanOrders[order]['status'] %> <% for (let dish of
+      cleanOrders[order].dishes) { %>
+      <div>Dish: <%= dish[0] %>; Quantity: <%= dish[1] %></div>
+      <% } %>
     </div>
-    <% } %>
-</body>
-
+    <% if (cleanOrders[order].status === 'pending') { %>
+    <div>
+      <input type="text" name="prepTime" />
+      <button>Prep</button>
+    </div>
+    <% } %> <% } %>
+  </body>
 </html>
