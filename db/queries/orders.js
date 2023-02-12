@@ -28,4 +28,16 @@ const placeOrder = (user_id, orders) => {
     });
 };
 
-module.exports = { getOrders, placeOrder };
+const acceptOrder = (expected_completion, order_id) => {
+  return db
+    .query(
+      `UPDATE orders SET expected_completion = to_timestamp($1), status = 'in progress' WHERE id = $2
+       RETURNING *;`,
+      [expected_completion, order_id]
+    )
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getOrders, placeOrder, acceptOrder };

@@ -27,7 +27,7 @@
       <% } %>
     </div>
     <% if (cleanOrders[order].status === 'pending') { %>
-    <div>
+    <div id="prep_<%= order %>">
       <form class="form">
         <div class="form-group">
           <label for="duration">Duration:</label>
@@ -39,7 +39,7 @@
             style="width: 300px"
           />
         </div>
-        <button data-id="<%= order %>" type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success">
           Prep
         </button>
       </form>
