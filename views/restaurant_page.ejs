@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/styles/layout.css" />
 
     <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/users.js"></script>
+    <script defer src="/scripts/restaurant_page.js"></script>
   </head>
 
   <body>
@@ -28,8 +28,21 @@
     </div>
     <% if (cleanOrders[order].status === 'pending') { %>
     <div>
-      <input type="text" name="prepTime" />
-      <button>Prep</button>
+      <form class="form">
+        <div class="form-group">
+          <label for="duration">Duration:</label>
+          <input
+            data-id="<%= order %>"
+            class="form-control"
+            type="text"
+            name="duration"
+            style="width: 300px"
+          />
+        </div>
+        <button data-id="<%= order %>" type="submit" class="btn btn-success">
+          Prep
+        </button>
+      </form>
     </div>
     <% } %> <% } %>
   </body>
