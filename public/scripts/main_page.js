@@ -1,13 +1,7 @@
 // Client facing scripts here
 $(() => {
-  const foodCart = {
-    // dish_id: {
-    //   quantity:,
-    //   dish_name:,
-    //   price
-    // }
-  };
-  $(".add-cart-btn").on('click', (event) => {
+  let foodCart = {};
+  $(".add-cart-btn").on("click", (event) => {
     const targetFood = event.target.dataset;
     if (foodCart[targetFood.id]) {
       foodCart[targetFood.id].quantity++;
@@ -15,20 +9,20 @@ $(() => {
       foodCart[targetFood.id] = {
         quantity: 1,
         name: targetFood.name,
-        price: targetFood.price
+        price: targetFood.price,
       };
     }
-    console.log(event.target.dataset.name);
-    console.log(foodCart);
   });
 
-
-  $('#cart-btn').on('click', function() {
+  $("#cart-btn").on("click", function () {
+    const cartBody = $(".table-body");
+    cartBody.empty();
     let total = 0;
 
     for (const food_id in foodCart) {
-      const thisDishTotal = Number(foodCart[food_id].quantity) * Number(foodCart[food_id].price);
-      $('.table-body').append(`
+      const thisDishTotal =
+        Number(foodCart[food_id].quantity) * Number(foodCart[food_id].price);
+      cartBody.append(`
       <tr>
         <td>
           <div class="media align-items-center">
@@ -42,23 +36,24 @@ $(() => {
         <td class="text-right font-weight-semibold align-middle">$${thisDishTotal}</td>
       </tr>
       `);
-      total += (thisDishTotal);
+      total += thisDishTotal;
     }
 
-    $('.cart-total').empty().append(`
+    $(".cart-total").empty().append(`
       <strong>$${(total * 1.13).toFixed(2)}</strong>
     `);
-
-    console.log(total);
-
   });
 
+  $("#place-order").on("click", (event) => {
+    const finalOrder = {};
+    for (const dishId in foodCart) {
+      finalOrder[dishId] = foodCart[dishId].quantity;
+    }
 
+    console.log(finalOrder);
+    $.post("/api/customers/place-order", finalOrder, function (data, status) {
+      foodCart = {};
+      $("#close-modal").click();
+    });
+  });
 });
-
-
-
-
-
-
-
