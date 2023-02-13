@@ -39,5 +39,15 @@ const acceptOrder = (expected_completion, order_id) => {
       return data.rows[0];
     });
 };
-
-module.exports = { getOrders, placeOrder, acceptOrder };
+const completeOrder = (order_id) => {
+  return db
+    .query(
+      `UPDATE orders SET status = 'confirmed' WHERE id = $1
+     RETURNING *;`,
+      [order_id]
+    )
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+module.exports = { getOrders, placeOrder, acceptOrder, completeOrder };

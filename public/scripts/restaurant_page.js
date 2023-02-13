@@ -17,4 +17,8 @@ $(() => {
       }
     );
   });
+
+  // $("#testtest").on('click', function(){
+  //   $.post('http://localhost:8080/api/restaurants/complete-order',{order_id: 4})
+  // })
 });

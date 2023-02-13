@@ -41,4 +41,15 @@ SELECT users.phone_number From users JOIN restaurants ON restaurants.owner_id = 
 
 };
 
-module.exports = { getUsers, getUserByEmail, getUserById, addNewUser, getOwnerSMS };
+const getUserSMS = (ordersId) => {
+  return db.query(`
+SELECT users.phone_number From users JOIN orders ON user_id = users.id WHERE orders.id = $1;
+`, [ordersId])
+    .then(data => {
+      return data.rows[0];
+    });
+
+};
+
+
+module.exports = { getUsers, getUserByEmail, getUserById, addNewUser, getOwnerSMS, getUserSMS };
