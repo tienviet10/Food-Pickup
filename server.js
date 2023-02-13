@@ -43,9 +43,9 @@ const { auth } = require('./helpers/auth');
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
+app.use('/auth', authRoutes);
 app.use('/api/customers',auth("cus"), customerApiRoutes);
 app.use('/api/restaurants',auth("res"), restaurantApiRoutes);
-app.use('/auth', authRoutes);
 app.use('/customers', auth("cus"), customersRoutes);
 app.use('/restaurants', auth("res"), restaurantsRoutes);
 
