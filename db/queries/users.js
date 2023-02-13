@@ -31,5 +31,14 @@ RETURNING * ; `, [name, email, password, phone_number])
     });
 };
 
+const getOwnerSMS = (restaurant_id) => {
+  return db.query(`
+SELECT users.phone_number From users JOIN restaurants ON restaurants.owner_id = users.id WHERE restaurants.id = $1;
+`, [restaurant_id])
+    .then(data => {
+      return data.rows[0];
+    });
 
-module.exports = { getUsers, getUserByEmail, getUserById, addNewUser };
+};
+
+module.exports = { getUsers, getUserByEmail, getUserById, addNewUser, getOwnerSMS };

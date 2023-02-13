@@ -6,7 +6,7 @@ VALUES
     'Amaal Ali',
     'sebseb@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-    '6475657757',
+    '+16478094854',
     'cus'
   ),
   (
@@ -20,14 +20,14 @@ VALUES
     'Viet Tran',
     'viettran@gmail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-    '4374733495',
+    '+15879895922',
     'cus'
   ),
   (
     'Dave John',
     'davejohn@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-    '6472029875',
+    '+16478094854',
     'res'
   ),
   (
