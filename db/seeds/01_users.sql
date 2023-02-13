@@ -13,7 +13,7 @@ VALUES
     'Khalid Noori',
     'khalidnoori@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-    '+9059664712',
+    '+19059664712',
     'cus'
   ),
   (

@@ -45,6 +45,6 @@ VALUES
     100,
     'https://www.seriouseats.com/thmb/gBMNe_J1QqbAz_QAXfW7-bRrhnw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/better-no-knead-bread-recipe-hero-01_1-48d654bfadeb4a5caf9b233b00fc74ca.JPG',
     'No description yet',
-    FALSE,
+    TRUE,
     1
   );

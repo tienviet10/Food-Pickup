@@ -1,106 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Users</title>
 
-<head>
-  <title>Users</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+    <script
+      defer
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/main_page.js"></script>
+  </head>
 
-  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/main_page.js"></script>
-</head>
-
-<body>
-  <h1>MAIN PAGE VIEWWWWWW!</h1>
-  <div>
-    <h2>Menu</h2>
-    <% for (let dish of restaurant) { %>
-      <div>
-        <%= dish.dish_name %>
-        <%= dish.price %>
-        <%= dish.description %>
-        <%= dish.id %>
-      </div>
-      <button data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>" data-price="<%= dish.price %>" class="add-cart-btn">Add</button>
-      <% } %>
-
-  </div>
-  <div>
-    <h2>Restaurant Info</h2>
-    <h5><%= restaurant[0].name %></h5>
-    <h5><%= restaurant[0].phone_number %></h5>
-    <h5><%= restaurant[0].address %></h5>
-    <h5><%= restaurant[0].rating %></h5>
-  </div>
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <body>
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+          <h5
+            class="section-title ff-secondary text-center text-primary fw-normal"
+          >
+            Food Menu
+          </h5>
+          <h1 class="mb-5">Menu Items</h1>
         </div>
-        <div class="modal-body">
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered m-0">
-
-                <thead>
-                  <tr>
-                    <th class="text-center py-3">Dish Name</th>
-                    <th class="text-right py-3">Price</th>
-                    <th class="text-center py-3">Quantity</th>
-                    <th class="text-right py-3">Total</th>
-                  </tr>
-                </thead>
-                <tbody class="table-body">
-
-                </tbody>
-
-              </table>
-            </div>
-
-            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
-              <div class="mt-4">
-              </div>
-              <div class="d-flex">
-                <div class="text-right mt-4 mr-5">
-
+        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+          <ul
+            class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5"
+          >
+            <li class="nav-item">
+              <a
+                class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active"
+                data-bs-toggle="pill"
+                href="#tab-1"
+              >
+                <i class="fa fa-coffee fa-2x text-primary"></i>
+                <div class="ps-3">
+                  <small class="text-body">Popular</small>
+                  <h6 class="mt-n1 mb-0">Breakfast</h6>
                 </div>
-                <div class="text-right mt-4">
-                  <label class="text-muted font-weight-normal m-0">Total price</label>
-                  <div class="cart-total text-large"><strong>$0</strong></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="d-flex align-items-center text-start mx-3 pb-3"
+                data-bs-toggle="pill"
+                href="#tab-2"
+              >
+                <i class="fa fa-hamburger fa-2x text-primary"></i>
+                <div class="ps-3">
+                  <small class="text-body">Special</small>
+                  <h6 class="mt-n1 mb-0">Launch</h6>
                 </div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="d-flex align-items-center text-start mx-3 me-0 pb-3"
+                data-bs-toggle="pill"
+                href="#tab-3"
+              >
+                <i class="fa fa-utensils fa-2x text-primary"></i>
+                <div class="ps-3">
+                  <small class="text-body">Lovely</small>
+                  <h6 class="mt-n1 mb-0">Dinner</h6>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active">
+              <div class="row g-4">
+                <% for (let dish of restaurant) { %>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center">
+                    <img
+                      class="flex-shrink-0 img-fluid rounded"
+                      src="<%= dish.url %>"
+                      alt=""
+                      style="width: 80px"
+                    />
+                    <div class="w-100 d-flex flex-column text-start ps-4">
+                      <h5
+                        class="d-flex justify-content-between border-bottom pb-2"
+                      >
+                        <span><%= dish.dish_name %></span>
+                        <span class="text-primary"><%= dish.price %></span>
+                      </h5>
+                      <img src="<%= dish.url %>" />
+                      <small class="fst-italic"><%= dish.description %></small>
+                    </div>
+                  </div>
+                  <button
+                    data-id="<%= dish.id %>"
+                    data-name="<%= dish.dish_name %>"
+                    data-price="<%= dish.price %>"
+                    class="add-cart-btn"
+                  >
+                    Add
+                  </button>
+                </div>
+                <% } %>
               </div>
             </div>
-
           </div>
-        </div>
-        <div class="modal-footer">
-          <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="place-order" type="button" class="btn btn-primary">Place Order</button>
         </div>
       </div>
     </div>
-  </div>
-  <button id="cart-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Show Carts
-  </button>
+    <!-- Menu End -->
 
-</body>
+    <div>
+      <h2>Restaurant Info</h2>
+      <h5><%= restaurant[0].name %></h5>
+      <h5><%= restaurant[0].phone_number %></h5>
+      <h5><%= restaurant[0].address %></h5>
+      <h5><%= restaurant[0].rating %></h5>
+    </div>
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                  <thead>
+                    <tr>
+                      <th class="text-center py-3">Dish Name</th>
+                      <th class="text-right py-3">Price</th>
+                      <th class="text-center py-3">Quantity</th>
+                      <th class="text-right py-3">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-body"></tbody>
+                </table>
+              </div>
 
+              <div
+                class="d-flex flex-wrap justify-content-between align-items-center pb-4"
+              >
+                <div class="mt-4"></div>
+                <div class="d-flex">
+                  <div class="text-right mt-4 mr-5"></div>
+                  <div class="text-right mt-4">
+                    <label class="text-muted font-weight-normal m-0"
+                      >Total price</label
+                    >
+                    <div class="cart-total text-large"><strong>$0</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="close-modal"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="place-order" type="button" class="btn btn-primary">
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      id="cart-btn"
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModalCenter"
+    >
+      Show Carts
+    </button>
+  </body>
 </html>
