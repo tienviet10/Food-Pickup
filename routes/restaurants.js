@@ -7,6 +7,7 @@ router.get("/restaurant-order", (req, res) => {
   getUserById(req.session.user_id).then((user) => {
     if (user.role === "res") {
       getOrders().then((orders) => {
+
         const cleanOrders = {};
         for (const detail of orders) {
           if (cleanOrders[detail.order_id]) {
@@ -23,7 +24,7 @@ router.get("/restaurant-order", (req, res) => {
             };
           }
         }
-        console.log(cleanOrders);
+
         const templateVars = {
           cleanOrders,
         };

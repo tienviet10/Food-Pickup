@@ -50,7 +50,6 @@ $(() => {
       finalOrder[dishId] = foodCart[dishId].quantity;
     }
 
-    console.log(finalOrder);
     $.post("/api/customers/place-order", finalOrder, function (data, status) {
       foodCart = {};
       $("#close-modal").click();

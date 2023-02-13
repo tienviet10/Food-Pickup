@@ -1,20 +1,13 @@
-/*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into /users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
-const router  = express.Router();
 const bcrypt = require("bcryptjs");
+const router  = express.Router();
 const salt = bcrypt.genSaltSync(10);
+const { getUserById, addNewUser, getUserByEmail } = require('../db/queries/users.js');
 
 router.get('/register', (req, res) => {
   res.render("registration",);
 });
 
-const { getUserById } = require('../db/queries/users.js');
 router.get('/login', (req, res) => {
   if (req.session.user_id) {
     getUserById(req.session.user_id).then((user) => {
@@ -26,10 +19,11 @@ router.get('/login', (req, res) => {
         return res.redirect('/restaurants/restaurant-order');
       }
 
-      res.redirect('/auth/login');
+      return res.redirect('/auth/login');
     });
+  } else {
+    res.render('login');
   }
-  res.render('login');
 });
 
 router.get('/logout', (req, res) => { // TODO: Change to POST request
@@ -37,7 +31,6 @@ router.get('/logout', (req, res) => { // TODO: Change to POST request
   res.redirect("/");
 });
 
-const { addNewUser } = require('../db/queries/users.js');
 router.post('/register', (req, res) => {
   getUserByEmail(req.body.email).then((user) => {
     if (user) {
@@ -58,7 +51,6 @@ router.post('/register', (req, res) => {
 });
 
 
-const { getUserByEmail } = require('../db/queries/users.js');
 router.post('/login', (req, res) => {
   getUserByEmail(req.body.email).then((user) => {
     if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -76,9 +68,5 @@ router.post('/login', (req, res) => {
     return res.json({ error: "Email or password was not found!" });
   });
 });
-
-// router.get('/', (req, res) => {
-//   res.render('users');
-// });
 
 module.exports = router;

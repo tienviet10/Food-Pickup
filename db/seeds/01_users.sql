@@ -27,7 +27,7 @@ VALUES
     'Dave John',
     'davejohn@ymail.com',
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-    '+16478094854',
+    '+15879895922',
     'res'
   ),
   (
