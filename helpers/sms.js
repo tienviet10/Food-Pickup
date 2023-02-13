@@ -6,7 +6,7 @@ const sendTextMessage = (phone, description) => {
   client.messages
     .create({
       to: phone,
-      from: '+13656045964',
+      from: process.env.TWILIO_PHONE,
       body: description,
     })
     .then((message) => console.log(`Message SID ${message.sid}`))

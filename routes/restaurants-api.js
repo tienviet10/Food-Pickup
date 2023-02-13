@@ -6,13 +6,15 @@ const { sendTextMessage } = require('../helpers/sms');
 const schedule = require('node-schedule');
 
 router.post("/accept-order", (req, res) => {
-  const dateInSecond = req.body.expected_completion;
+  const dateInSecond = req.body.expectedCompletion;
   const orderId = req.body.orderId;
   acceptOrder(dateInSecond, orderId).then((data) => {
     if (data) {
-      const newDate = new Date(dateInSecond * 1000);
-      console.log(newDate);
-      schedule.scheduleJob(newDate, ()=>{
+      console.log("second");
+      const expectedCompletion = new Date(dateInSecond * 1000);
+
+      console.log("Set schedule job");
+      schedule.scheduleJob(expectedCompletion, () => {
         completeOrder(orderId).then((data) => {
           if (data) {
             getUserSMS(orderId).then((owner) => {

@@ -42,7 +42,7 @@ const acceptOrder = (expected_completion, order_id) => {
 const completeOrder = (order_id) => {
   return db
     .query(
-      `UPDATE orders SET status = 'confirmed' WHERE id = $1
+      `UPDATE orders SET status = 'completion' WHERE id = $1
      RETURNING *;`,
       [order_id]
     )

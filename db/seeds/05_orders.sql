@@ -17,5 +17,5 @@ VALUES
     3,
     1,
     '2023-02-10 18:43:23.626482',
-    'confirmed'
+    'completion'
   );

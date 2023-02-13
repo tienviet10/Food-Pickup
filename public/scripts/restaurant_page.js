@@ -3,14 +3,14 @@ $(() => {
   $(".form").on("submit", function (event) {
     event.preventDefault();
     const inputField = $(this).find('input[name="duration"]');
-    const order_id = inputField.data("id");
+    const orderId = inputField.data("id");
     const duration = inputField.val();
-    const expected_completion = ($.now() + duration * 60000) / 1000;
-    const removeForm = "prep_" + order_id;
+    const expectedCompletion = ($.now() + duration * 60000) / 1000;
+    const removeForm = "prep_" + orderId;
 
     $.post(
       "/api/restaurants/accept-order",
-      { order_id, expected_completion },
+      { orderId, expectedCompletion },
       function(data, status) {
         $(`#${removeForm}`).empty();
       }
