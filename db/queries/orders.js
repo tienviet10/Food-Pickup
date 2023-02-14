@@ -20,13 +20,14 @@ const getSpecificOrder = (orderId) => {
     });
 };
 
-const placeOrder = (userId, orders) => {
+const placeOrder = (userId, orders, receiptId, totalAmount) => {
   return db
     .query(
-      "INSERT INTO orders (user_id, restaurant_id, expected_completion, status) VALUES ($1, 1, NULL, 'pending') RETURNING *;",
-      [userId]
+      "INSERT INTO orders (user_id, restaurant_id, expected_completion, status, receipt_id, total_payment) VALUES ($1, 1, NULL, 'pending', $2, $3) RETURNING *;",
+      [userId, receiptId, totalAmount]
     )
     .then((data) => {
+      console.log(data.rows[0]);
       for (const item in orders) {
         db.query(
           "INSERT INTO order_details (order_id, dish_id, quantity) VALUES ($1, $2, $3) RETURNING *;",
@@ -50,6 +51,7 @@ const acceptOrder = (expectedCompletion, orderId) => {
       return data.rows[0];
     });
 };
+
 const completeOrder = (orderId) => {
   return db
     .query(
@@ -61,4 +63,28 @@ const completeOrder = (orderId) => {
       return data.rows[0];
     });
 };
-module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder };
+
+const setReceipt = (orderId, receipt) => {
+  return db
+    .query(
+      `UPDATE orders SET receipt_id = $1 WHERE id = $2
+     RETURNING *;`,
+      [receipt, orderId]
+    )
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+const getTempReceipt = (receiptId) => {
+  return db
+    .query(
+      `SELECT orders.id, users.cus_id FROM orders JOIN users ON user_id = users.id WHERE receipt_id = $1
+     `,
+      [receiptId]
+    )
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt };

@@ -53,7 +53,6 @@ app.use('/api/restaurants',auth("res", io), restaurantApiRoutes);
 app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
-
 app.get('/', (req, res) => {
   res.render('index');
 });

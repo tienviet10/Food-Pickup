@@ -21,6 +21,7 @@
     crossorigin="anonymous"></script>
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js" integrity="sha512-rwu37NnL8piEGiFhe2c5j4GahN+gFsIn9k/0hkRY44iz0pc81tBNaUN56qF8X4fy+5pgAAgYi2C9FXdetne5sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://js.stripe.com/v3/"></script>
   <script defer src="/scripts/main_page.js"></script>
 </head>
 
@@ -101,7 +102,18 @@
   <button id="cart-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
     Show Carts
   </button>
+  <div id="creditcard-container">
 
+  </div>
+  <form id="payment-form">
+    <div id="payment-element">
+      <!-- Elements will create form elements here -->
+    </div>
+    <button id="submit">Pay Now</button>
+    <div id="error-message">
+      <!-- Display error message to your customers here -->
+    </div>
+  </form>
 </body>
 
 </html>

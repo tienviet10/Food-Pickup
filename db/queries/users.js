@@ -22,10 +22,10 @@ const getUserById = (id) => {
     });
 };
 
-const addNewUser = (name, email, password, phone_number) => {
-  return db.query(`INSERT INTO users (name, email, password, phone_number, role)
-VALUES ($1, $2, $3, $4, 'cus')
-RETURNING * ; `, [name, email, password, phone_number])
+const addNewUser = (name, email, password, phoneNumber, cusId) => {
+  return db.query(`INSERT INTO users (name, email, password, phone_number, role, cus_id)
+VALUES ($1, $2, $3, $4, 'cus', $5)
+RETURNING * ; `, [name, email, password, phoneNumber, cusId])
     .then(data => {
       return data.rows[0];
     });
@@ -39,10 +39,10 @@ RETURNING * ; `, [conn, userId])
     });
 };
 
-const getOwnerSMS = (restaurant_id) => {
+const getOwnerSMS = (restaurantId) => {
   return db.query(`
 SELECT users.phone_number, users.socket_conn From users JOIN restaurants ON restaurants.owner_id = users.id WHERE restaurants.id = $1;
-`, [restaurant_id])
+`, [restaurantId])
     .then(data => {
       return data.rows[0];
     });
