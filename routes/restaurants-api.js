@@ -5,6 +5,8 @@ const { getUserSMS, setSocketConnection } = require("../db/queries/users");
 const { sendTextMessage } = require('../helpers/sms');
 const { getOrders } = require('../db/queries/orders');
 const { getUserById } = require('../db/queries/users');
+const { orderProcessing } = require('../helpers/orders');
+
 const schedule = require('node-schedule');
 
 router.post("/accept-order", (req, res) => {
@@ -20,9 +22,6 @@ router.post("/accept-order", (req, res) => {
         schedule.scheduleJob(expectedCompletion, () => {
           completeOrder(orderId).then((data) => {
             if (data) {
-              // getUserSMS(orderId).then((owner) => {
-              //   sendTextMessage(owner['phone_number'], "Your Order is READY!");
-              // });
               sendTextMessage(owner['phone_number'], "Your Order is READY!");
             }
           });
@@ -38,22 +37,7 @@ router.get('/orders', (req, res) => {
   getUserById(req.session.user_id).then((user) => {
     if (user.role === "res") {
       getOrders().then((orders) => {
-        const cleanOrders = {};
-        for (const detail of orders) {
-          if (cleanOrders[detail.order_id]) {
-            cleanOrders[detail.order_id]["dishes"].push([
-              detail["dish_name"],
-              detail["quantity"],
-            ]);
-          } else {
-            cleanOrders[detail.order_id] = {
-              order_id: detail.order_id,
-              customer_name: detail.customer_name,
-              dishes: [[detail["dish_name"], detail["quantity"]]],
-              status: detail["status"],
-            };
-          }
-        }
+        const cleanOrders = orderProcessing(orders);
 
         return res.json({ cleanOrders });
       });
@@ -64,24 +48,11 @@ router.get('/orders', (req, res) => {
 });
 
 router.post('/conn', (req, res) => {
-
   setSocketConnection(req.session.user_id, req.body.conn).then((data) => {
     console.log("stored socket id for restaurant");
   });
-  // req.io.sockets.emit('receive-message', "hello");
   res.json({ message: "success" });
 });
 
-// router.post("/complete-order", (req, res) => {
-//   const orderId = req.body['order_id'];
-//   completeOrder(orderId).then((data) => {
-//     if (data) {
-//       getUserSMS(orderId).then((owner) => {
-//         sendTextMessage(owner['phone_number'], "Your Order is READY!");
-//       });
-//       return res.json({ message: "success" });
-//     }
-//   });
-// });
 
 module.exports = router;

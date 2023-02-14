@@ -35,6 +35,7 @@ const placeOrder = (userId, orders) => {
       }
       return data.rows[0];
       // data.rows[0].id;
+      // TODO: transactions in SQL server (Postgres transaction)
     });
 };
 
@@ -52,7 +53,7 @@ const acceptOrder = (expectedCompletion, orderId) => {
 const completeOrder = (orderId) => {
   return db
     .query(
-      `UPDATE orders SET status = 'completion' WHERE id = $1
+      `UPDATE orders SET status = 'completed' WHERE id = $1
      RETURNING *;`,
       [orderId]
     )

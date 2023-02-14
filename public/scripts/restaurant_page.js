@@ -30,7 +30,7 @@ $(() => {
 
     const $order = $(`
       <div>
-        <div>${order.order_id} ${order.customer_name}</div>
+        <div>${order.order_id} ${order.customer_name} ${order.status}</div>
         ${displayDish}
         ${order.status === 'pending' ? formTemplate : ''}
       </div>
