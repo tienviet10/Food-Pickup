@@ -1,5 +1,15 @@
 // Client facing scripts here
 $(() => {
+  // Spinner
+  const spinner = function() {
+    setTimeout(function() {
+      if ($('#spinner').length > 0) {
+        $('#spinner').removeClass('show');
+      }
+    }, 1);
+  };
+  spinner();
+
   const socket = io();
   let foodCart = {};
   let totalPayment = 0;
@@ -18,7 +28,7 @@ $(() => {
     }
   });
 
-  $("#cart-btn").on("click", function () {
+  $("#cart-btn").on("click", function() {
     const cartBody = $(".table-body");
     cartBody.empty();
     let total = 0;
@@ -61,7 +71,7 @@ $(() => {
 
     $('#creditcard-container').append('<div>OLD</div>');
 
-    $.post('/api/customers/request-payment', {data: JSON.stringify(sentVar)})
+    $.post('/api/customers/request-payment', { data: JSON.stringify(sentVar) })
       .done((response) => {
         // foodCart = {};
         $("#close-modal").click();
@@ -81,7 +91,7 @@ $(() => {
 
         const form = document.getElementById('payment-form');
 
-        form.addEventListener('submit', async(event) => {
+        form.addEventListener('submit', async (event) => {
           event.preventDefault();
           console.log(event);
           const { error } = await stripe.confirmPayment({
@@ -149,13 +159,13 @@ $(() => {
     // });
   });
 
-  socket.on('connect', ()=> {
+  socket.on('connect', () => {
     console.log(socket.id);
-    $.post('/api/customers/conn', {conn: socket.id});
+    $.post('/api/customers/conn', { conn: socket.id });
   });
 
 
-  socket.on("receive-message", ()=> {
+  socket.on("receive-message", () => {
     console.log("Order confirmed");
 
   });

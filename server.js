@@ -32,10 +32,6 @@ const customersRoutes = require('./routes/customers');
 const restaurantsRoutes = require('./routes/restaurants');
 const { auth } = require('./helpers/auth');
 
-// // Socket
-// io.on('connection', () => {
-//   console.log('New WS Connection...');
-// });
 
 app.use('/auth', authRoutes);
 // --> maybe add common api
@@ -45,7 +41,7 @@ app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('home_page');
 });
 
 app.get('*', (req, res) => {
