@@ -8,5 +8,6 @@ CREATE TABLE users (
   phone_number VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   role VARCHAR(100) NOT NULL DEFAULT 'cus',
+  socket_conn TEXT,
   date_registered TIMESTAMP DEFAULT NOW()
 );

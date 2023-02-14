@@ -31,9 +31,17 @@ RETURNING * ; `, [name, email, password, phone_number])
     });
 };
 
+const setSocketConnection = (userId, conn) => {
+  return db.query(`UPDATE users SET socket_conn = $1 WHERE id = $2
+RETURNING * ; `, [conn, userId])
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
 const getOwnerSMS = (restaurant_id) => {
   return db.query(`
-SELECT users.phone_number From users JOIN restaurants ON restaurants.owner_id = users.id WHERE restaurants.id = $1;
+SELECT users.phone_number, users.socket_conn From users JOIN restaurants ON restaurants.owner_id = users.id WHERE restaurants.id = $1;
 `, [restaurant_id])
     .then(data => {
       return data.rows[0];
@@ -43,7 +51,7 @@ SELECT users.phone_number From users JOIN restaurants ON restaurants.owner_id = 
 
 const getUserSMS = (ordersId) => {
   return db.query(`
-SELECT users.phone_number From users JOIN orders ON user_id = users.id WHERE orders.id = $1;
+SELECT users.phone_number, users.socket_conn From users JOIN orders ON user_id = users.id WHERE orders.id = $1;
 `, [ordersId])
     .then(data => {
       return data.rows[0];
@@ -52,4 +60,4 @@ SELECT users.phone_number From users JOIN orders ON user_id = users.id WHERE ord
 };
 
 
-module.exports = { getUsers, getUserByEmail, getUserById, addNewUser, getOwnerSMS, getUserSMS };
+module.exports = { getUsers, getUserByEmail, getUserById, addNewUser, getOwnerSMS, getUserSMS, setSocketConnection };

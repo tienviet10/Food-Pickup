@@ -1,5 +1,6 @@
 // Client facing scripts here
 $(() => {
+  const socket = io();
   let foodCart = {};
   $(".add-cart-btn").on("click", (event) => {
     const targetFood = event.target.dataset;
@@ -54,5 +55,16 @@ $(() => {
       foodCart = {};
       $("#close-modal").click();
     });
+  });
+
+  socket.on('connect', ()=> {
+    console.log(socket.id);
+    $.post('/api/customers/conn', {conn: socket.id});
+  });
+
+
+  socket.on("receive-message", ()=> {
+    console.log("Order confirmed");
+
   });
 });

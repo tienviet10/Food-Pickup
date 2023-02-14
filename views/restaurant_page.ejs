@@ -13,40 +13,17 @@
     <link rel="stylesheet" href="/styles/layout.css" />
 
     <script src="/vendor/jquery-3.0.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js" integrity="sha512-rwu37NnL8piEGiFhe2c5j4GahN+gFsIn9k/0hkRY44iz0pc81tBNaUN56qF8X4fy+5pgAAgYi2C9FXdetne5sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="/scripts/restaurant_page.js"></script>
   </head>
 
   <body>
     <h1>RESTAURANT VIEWWWWWW!</h1>
-    <% for (let order in cleanOrders) { %>
-    <div>
-      <%= order %> <%= cleanOrders[order]['customer_name'] %> <%=
-      cleanOrders[order]['status'] %> <% for (let dish of
-      cleanOrders[order].dishes) { %>
-      <div>Dish: <%= dish[0] %>; Quantity: <%= dish[1] %></div>
-      <% } %>
-    </div>
-    <% if (cleanOrders[order].status === 'pending') { %>
-    <div id="prep_<%= order %>">
-      <form class="form">
-        <div class="form-group">
-          <label for="duration">Duration:</label>
-          <input
-            data-id="<%= order %>"
-            class="form-control"
-            type="text"
-            name="duration"
-            style="width: 300px"
-          />
-        </div>
-        <button type="submit" class="btn btn-success">
-          Prep
-        </button>
-      </form>
-    </div>
-    <% } %> <% } %>
+    <div class="container">
 
-
-    <!-- <button id="testtest">Test</button> -->
+    </div>
   </body>
 </html>
+
+
+
