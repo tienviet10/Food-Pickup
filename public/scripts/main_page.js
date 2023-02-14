@@ -15,18 +15,18 @@ $(() => {
   let totalPayment = 0;
   const stripe = Stripe('pk_test_51K20YpCukaTecINAoUOQHSmjClZyiCm5neg15HTGMZFDwOQcEZqeQaSCBiDgBRWyvqzY9TTJkty2acHST3Fe4s8T003JfKaazx');
 
-  $(".add-cart-btn").on("click", (event) => {
-    const targetFood = event.target.dataset;
-    if (foodCart[targetFood.id]) {
-      foodCart[targetFood.id].quantity++;
-    } else {
-      foodCart[targetFood.id] = {
-        quantity: 1,
-        name: targetFood.name,
-        price: targetFood.price,
-      };
-    }
-  });
+  // $(".add-cart-btn").on("click", (event) => {
+  //   const targetFood = event.target.dataset;
+  //   if (foodCart[targetFood.id]) {
+  //     foodCart[targetFood.id].quantity++;
+  //   } else {
+  //     foodCart[targetFood.id] = {
+  //       quantity: 1,
+  //       name: targetFood.name,
+  //       price: targetFood.price,
+  //     };
+  //   }
+  // });
 
   $("#cart-btn").on("click", function() {
     const cartBody = $(".table-body");
@@ -168,5 +168,27 @@ $(() => {
   socket.on("receive-message", () => {
     console.log("Order confirmed");
 
+  });
+
+  $('.form').on('submit', function(event) {
+    event.preventDefault();
+    console.log($(this).find('input[name="quantity"]').val());
+    console.log($(this).find('input[name="quantity"]').data('id'));
+
+    const $inputField = $(this).find('input[name="quantity"]');
+    const dishId = $inputField.data('id');
+    const dishName = $inputField.data('name');
+    const dishPrice = $inputField.data('price');
+    if (foodCart[dishId]) {
+      foodCart[dishId].quantity += parseInt($inputField.val());
+    } else {
+      foodCart[dishId] = {
+        quantity: parseInt($inputField.val()),
+        name: dishName,
+        price: dishPrice,
+      };
+    }
+    $('#cart-badge').css('display', 'block');
+    $inputField.val(0);
   });
 });
