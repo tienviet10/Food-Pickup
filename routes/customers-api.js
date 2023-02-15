@@ -93,7 +93,7 @@ router.post('/stored-cards-payment', (req, res) => {
   getAPaymentById(req.session.user_id, info.creditcard).then((payment) => {
     stripe.paymentIntents.create({
       amount: Math.round(info.totalPayment * 100),
-      currency: 'usd',
+      currency: 'cad',
       customer: payment.cus_id,
       payment_method: payment.payment_method,
       off_session: true,

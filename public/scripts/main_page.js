@@ -53,8 +53,7 @@ $(() => {
     `);
   });
 
-  $("#place-order").on("click", (event) => {
-
+  $("#pay-order-btn").on("click", (event) => {
     $('#modal-spinner').css('display', 'flex');
     $('#modal-cards-area').empty();
     const finalOrder = {};
@@ -120,6 +119,8 @@ $(() => {
 
           form.addEventListener('submit', async (event) => {
             event.preventDefault();
+            $('#place-order').prop('disabled', true);
+
             $('#modal-spinner').css('display', 'flex');
             const { error } = await stripe.confirmPayment({
               //`Elements` instance that was used to create the Payment Element
@@ -135,6 +136,7 @@ $(() => {
               // details incomplete)
               const messageContainer = document.querySelector('#error-message');
               messageContainer.textContent = error.message;
+              $('#place-order').prop('disabled', false);
             } else {
               // Your customer will be redirected to your `return_url`. For some payment
               // methods like iDEAL, your customer will be redirected to an intermediate
@@ -182,10 +184,10 @@ $(() => {
     });
 
     $('#place-order-2').on('click', function() {
+      $(this).prop('disabled', true);
       $('#modal-spinner').css('display', 'flex');
-      $('#modal-cards-area').empty();
       const chosenCreditCard = $('input:radio[name=credit-card-number]:checked').val();
-
+      console.log(chosenCreditCard);
       const finalOrder = {};
       for (const dishId in foodCart) {
         finalOrder[dishId] = foodCart[dishId].quantity;
@@ -200,7 +202,10 @@ $(() => {
       $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
         .done((response) => {
           console.log(response);
+          foodCart = {};
+          totalPayment = 0;
           $('#modal-spinner').css('display', 'none');
+          $(this).prop('disabled', false);
           $("#close-modal-2").click();
         });
 
@@ -261,6 +266,7 @@ $(() => {
       }
       $('#cart-badge').css('visibility', 'visible');
       $inputField.val(0);
+      $('#pay-order-btn').prop('disabled', false);
     }
   });
 
