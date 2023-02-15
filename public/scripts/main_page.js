@@ -54,6 +54,7 @@ $(() => {
   });
 
   $("#place-order").on("click", (event) => {
+
     $('#modal-spinner').css('display', 'flex');
     $('#modal-cards-area').empty();
     const finalOrder = {};
@@ -72,10 +73,9 @@ $(() => {
 
     $.get("/api/customers/payment-methods").then(data => {
       $('#modal-spinner').css('display', 'none');
-      //$('#modal-cards-area').empty();
       $('#payment-element').empty();
-      for (const paymentIndex in data.payments) {
 
+      for (const paymentIndex in data.payments) {
         $('#modal-cards-area').append(`
         <div class="form-check m-2">
           <input class="form-check-input" type="radio" name="credit-card-number" id="flexRadioDefault_${data.payments[paymentIndex].id}" value="${data.payments[paymentIndex].id}" ${paymentIndex === '0' ? 'checked' : ''}>
@@ -120,7 +120,7 @@ $(() => {
 
           form.addEventListener('submit', async (event) => {
             event.preventDefault();
-
+            $('#modal-spinner').css('display', 'flex');
             const { error } = await stripe.confirmPayment({
               //`Elements` instance that was used to create the Payment Element
               elements,
@@ -175,12 +175,15 @@ $(() => {
                 }
               });
             }
+            $('#modal-spinner').css('display', 'none');
           });
 
         });
     });
 
     $('#place-order-2').on('click', function() {
+      $('#modal-spinner').css('display', 'flex');
+      $('#modal-cards-area').empty();
       const chosenCreditCard = $('input:radio[name=credit-card-number]:checked').val();
 
       const finalOrder = {};
@@ -194,11 +197,10 @@ $(() => {
         creditcard: chosenCreditCard,
       };
 
-      console.log(sentVar);
-
       $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
         .done((response) => {
           console.log(response);
+          $('#modal-spinner').css('display', 'none');
           $("#close-modal-2").click();
         });
 
