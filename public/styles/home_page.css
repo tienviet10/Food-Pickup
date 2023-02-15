@@ -75,3 +75,7 @@
   background: var(--foodwise-primary);
   border-color: var(--foodwise-primary);
 }
+
+.service-item .service-div :hover {
+  color: #152f6e !important;
+}

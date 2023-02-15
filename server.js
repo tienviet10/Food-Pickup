@@ -37,7 +37,7 @@ app.use('/api/customers',auth("cus", io), customerApiRoutes);
 app.use('/api/restaurants',auth("res", io), restaurantApiRoutes);
 app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
-// --> maybe add common api
+
 
 app.get('/', (req, res) => {
   const templateVar = { user: false };

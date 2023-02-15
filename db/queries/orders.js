@@ -87,4 +87,33 @@ const getTempReceipt = (receiptId) => {
       return data.rows[0];
     });
 };
-module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt };
+
+const getACustomersOrders = (customerId) => {
+  return db
+    .query(
+      "SELECT orders.id, restaurants.name, expected_completion, status, total_payment, order_date FROM orders JOIN restaurants ON restaurants.id = restaurant_id WHERE user_id = $1", [customerId]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
+
+const getOrderDetailsById = (customerId, orderId) => {
+  // return db
+  //   .query(
+  //     "SELECT * FROM orders JOIN order_details ON orders.id = order_id WHERE user_id = $1 AND orders.id = $2", [customerId, orderId]
+  //   )
+  //   .then((data) => {
+  //     return data.rows;
+  //   });
+  return db
+    .query(
+      "SELECT dishes.name AS dish_name, order_id, quantity, dishes.price FROM orders JOIN order_details ON orders.id = order_id JOIN users ON user_id = users.id JOIN dishes ON dish_id = dishes.id WHERE users.id = $1 AND orders.id = $2;", [customerId, orderId]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
+
+
+module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt, getACustomersOrders, getOrderDetailsById };

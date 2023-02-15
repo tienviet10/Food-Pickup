@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { sendTextMessage } = require('../helpers/sms');
 const { orderProcessing } = require('../helpers/orders');
-const { placeOrder, getSpecificOrder, getTempReceipt, setReceipt } = require('../db/queries/orders');
+const { placeOrder, getSpecificOrder, getTempReceipt, setReceipt, getACustomersOrders, getOrderDetailsById } = require('../db/queries/orders');
 const { getOwnerSMS, setSocketConnection, getUserById } = require('../db/queries/users');
 const { savePaymentInfo, getPaymentsById, getAPaymentById } = require('../db/queries/payment');
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
@@ -115,9 +115,19 @@ router.post('/stored-cards-payment', (req, res) => {
 
     });
   });
+});
 
+router.get('/orders', (req, res) => {
+  getACustomersOrders(req.session.user_id).then((orders) => {
+    return res.json({ orders });
+  });
+});
 
-
+router.post('/order-details', (req, res) => {
+  console.log(req.body);
+  getOrderDetailsById(req.session.user_id, req.body.orderId).then((order) => {
+    return res.json({ order });
+  });
 });
 
 
