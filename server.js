@@ -5,6 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
+const { getUserById } = require('./db/queries/users.js');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -40,7 +41,15 @@ app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
 app.get('/', (req, res) => {
-  res.render('home_page');
+  if (req.session.user_id) {
+    getUserById(req.session.user_id).then((user) => {
+      const templateVar = { user: true };
+      res.render('home_page', templateVar);
+    });
+  } else {
+    const templateVar = { user: false };
+    res.render('home_page', templateVar);
+  }
 });
 
 app.get('*', (req, res) => {

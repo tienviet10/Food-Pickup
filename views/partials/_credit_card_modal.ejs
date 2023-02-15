@@ -1,0 +1,46 @@
+<div class="modal fade" id="payment-modal" role="dialog" aria-labelledby="paymentTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <nav class="nav nav-pills nav-justified mb-4">
+          <button id="customer-cards" class="nav-item nav-link m-2 border-0 active">
+            Cards
+          </button>
+          <button id="add-new-cards" class="nav-item nav-link m-2 border-0">
+            Add Card
+          </button>
+        </nav>
+        <div id="modal-cards-area">
+        </div>
+
+
+        <form id="payment-form">
+          <div id="payment-element">
+          </div>
+          <div id="error-message">
+          </div>
+          <div class="w-100 d-flex justify-content-center mt-4 mb-4">
+            <div id="modal-spinner" class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div id="add-card-btn" class="modal-footer">
+            <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="place-order" type="submit" class="btn btn-primary">Place Order</button>
+          </div>
+        </form>
+
+        <div id="cards-btn" class="modal-footer">
+          <button id="close-modal-2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="place-order-2" type="button" class="btn btn-primary">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

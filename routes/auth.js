@@ -6,7 +6,22 @@ const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const { getUserById, addNewUser, getUserByEmail } = require('../db/queries/users.js');
 
 router.get('/register', (req, res) => {
-  res.render("registration",);
+  if (req.session.user_id) {
+    getUserById(req.session.user_id).then((user) => {
+      if (user.role === 'cus') {
+        return res.redirect('/customers/menu-page');
+      }
+
+      if (user.role === 'res') {
+        return res.redirect('/restaurants/restaurant-order');
+      }
+
+      return res.redirect('/auth/login');
+    });
+  } else {
+    const templateVar = { user: false };
+    res.render("registration", templateVar);
+  }
 });
 
 router.get('/login', (req, res) => {
@@ -23,7 +38,8 @@ router.get('/login', (req, res) => {
       return res.redirect('/auth/login');
     });
   } else {
-    res.render('login');
+    const templateVar = { user: false };
+    res.render('login', templateVar);
   }
 });
 

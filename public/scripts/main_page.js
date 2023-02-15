@@ -1,5 +1,9 @@
-// Client facing scripts here
 $(() => {
+  const socket = io();
+  let foodCart = {};
+  let totalPayment = 0;
+  const stripe = Stripe('pk_test_51K20YpCukaTecINAoUOQHSmjClZyiCm5neg15HTGMZFDwOQcEZqeQaSCBiDgBRWyvqzY9TTJkty2acHST3Fe4s8T003JfKaazx');
+
   // Spinner
   const spinner = function() {
     setTimeout(function() {
@@ -10,23 +14,14 @@ $(() => {
   };
   spinner();
 
-  const socket = io();
-  let foodCart = {};
-  let totalPayment = 0;
-  const stripe = Stripe('pk_test_51K20YpCukaTecINAoUOQHSmjClZyiCm5neg15HTGMZFDwOQcEZqeQaSCBiDgBRWyvqzY9TTJkty2acHST3Fe4s8T003JfKaazx');
+  // make nav link active
+  const path = window.location.href;
+  $('div a').each(function() {
+    if (this.href === path) {
+      $(this).addClass('active');
+    }
+  });
 
-  // $(".add-cart-btn").on("click", (event) => {
-  //   const targetFood = event.target.dataset;
-  //   if (foodCart[targetFood.id]) {
-  //     foodCart[targetFood.id].quantity++;
-  //   } else {
-  //     foodCart[targetFood.id] = {
-  //       quantity: 1,
-  //       name: targetFood.name,
-  //       price: targetFood.price,
-  //     };
-  //   }
-  // });
 
   $("#cart-btn").on("click", function() {
     const cartBody = $(".table-body");
@@ -182,11 +177,6 @@ $(() => {
           });
 
         });
-      ///// -> TODO: Make sure this is incorporated
-      // $.post("/api/customers/place-order", finalOrder, function (data, status) {
-      //   foodCart = {};
-      //   $("#close-modal").click();
-      // });
     });
 
     $('#place-order-2').on('click', function() {
@@ -203,9 +193,13 @@ $(() => {
         creditcard: chosenCreditCard,
       };
 
+      console.log(sentVar);
+
       $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
         .done((response) => {
           console.log(response);
+          $('#modal-cards-area').empty();
+          $("#close-modal-2").click();
         });
 
     });
@@ -267,4 +261,6 @@ $(() => {
       $inputField.val(0);
     }
   });
+
+
 });

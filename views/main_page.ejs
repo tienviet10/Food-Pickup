@@ -8,12 +8,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,13 +20,21 @@
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main_page.css" type="text/css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+
+  <!-- JS -->
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"
     integrity="sha512-rwu37NnL8piEGiFhe2c5j4GahN+gFsIn9k/0hkRY44iz0pc81tBNaUN56qF8X4fy+5pgAAgYi2C9FXdetne5sQ=="
@@ -42,357 +44,153 @@
 </head>
 
 <body>
-
   <div class="container-xxl bg-white p-0">
-    <!-- Spinner Start -->
-    <div id="spinner"
-      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-    <!-- Spinner End -->
+    <%- include('partials/_spinner') %>
+    <%- include('partials/_header', {user}) %>
 
-    <!-- Navbar -->
-    <!-- REFACTOR NAVBAR ----------------------------------------------------------- -->
-    <div class="container-xxl position-relative p-0">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-        <a href="" class="navbar-brand p-0">
-          <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>FoodWise</h1>
-          <!-- <img src="img/logo.png" alt="Logo"> -->
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-          <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav ms-auto py-0 pe-4">
-            <a href="index.html" class="nav-item nav-link active">Home</a>
-            <a href="index.html" class="nav-item nav-link">Restaurants</a>
-            <a href="about.html" class="nav-item nav-link">Orders</a>
-            <a href="contact.html" class="nav-item nav-link">Contact</a>
-          </div>
-
-        </div>
-      </nav>
-    </div>
-    <!-- Navbar & Hero End -->
-
-
-    <section id="gtco-welcome" class="bg-white section-padding">
-      <div class="container">
-        <div class="section-content">
-          <div class="row">
-            <div id="restaurant-picture"
-              class="col-sm-5 img-bg d-flex shadow align-items-center justify-content-center justify-content-md-end img-2 mt-5 rounded"
-              style="background-image: url(https://static6.businessinsider.com/image/5436f70569beddc5719cf92b-1200/25-girl-and-the-goat-chicago.jpg); height: 520px;">
-
-            </div>
-            <div class="col-sm-7 py-5 pl-md-0 pl-4">
-              <div class="heading-section pl-lg-5 ml-md-5">
-                <span class="subheading">
-                  About
-
-                </span>
-                <h2>
-                  Welcome to <%= restaurant[0].name %>
-                </h2>
+      <section id="gtco-welcome" class="bg-white section-padding">
+        <div class="container">
+          <div class="section-content">
+            <div class="row">
+              <div id="restaurant-picture"
+                class="col-sm-5 img-bg d-flex shadow align-items-center justify-content-center justify-content-md-end img-2 mt-5 rounded"
+                style="background-image: url(https://static6.businessinsider.com/image/5436f70569beddc5719cf92b-1200/25-girl-and-the-goat-chicago.jpg); height: 520px;">
 
               </div>
-              <div class="pl-lg-5 ml-md-5">
-                <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
-                  have been rewritten a thousand times and everything that was left from its origin would be the word
-                  "and" and the Little Blind Text should turn around and return to its own, safe country. A small river
-                  named Duden flows. </p>
-                <p> Address: <%= restaurant[0].address %>
-                </p>
-                <p> Phone: <%= restaurant[0].phone_number %>
-                </p>
-                <div class="special-dishes">
-                  <h3 class="mt-2">Special Recipe</h3>
-                  <div class="row mt-3">
-                    <div class="col-4">
-                      <a href="#" class="thumb-menu">
-                        <img class="img-fluid img-cover rounded"
-                          src="https://hips.hearstapps.com/hmg-prod/images/delish-190618-air-fryer-fried-chicken-361-landscape-pf-1561574618.png?crop=0.668xw:1.00xh;0.0867xw,0&resize=1200:*"
-                          style="height:150px" />
-                        <h6>Australian Organic Beef</h6>
-                      </a>
-                    </div>
-                    <div class="col-4">
-                      <a href="#" class="thumb-menu">
-                        <img class="img-fluid img-cover rounded"
-                          src="https://i.pinimg.com/736x/a0/96/23/a0962332f9445b2779e138aca6eb312a--masala-spice-magic-box.jpg"
-                          style="height:150px" />
-                        <h6>Australian Organic Beef</h6>
-                      </a>
-                    </div>
-                    <div class="col-4">
-                      <a href="#" class="thumb-menu">
-                        <img class="img-fluid img-cover rounded"
-                          src="https://assets.bonappetit.com/photos/5c619a0408be415aeb84b702/1:1/w_2560%2Cc_limit/Spice-Drawer-Chicken-Wings.jpg"
-                          style="height:150px" />
-                        <h6>Australian Organic Beef</h6>
-                      </a>
-                    </div>
-                  </div>
+              <div class="col-sm-7 py-5 pl-md-0 pl-4">
+                <div class="heading-section pl-lg-5 ml-md-5">
+                  <span class="subheading">
+                    About
+                    <%= user %>
+                  </span>
+                  <h2>
+                    Welcome to <%= restaurant[0].name %>
+                  </h2>
+
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Menu Start -->
-    <div class="container-xxl py-5 mt-2">
-      <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-          <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
-          <h1 class="mb-5">Most Popular Items</h1>
-        </div>
-        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
-          <div class="tab-content">
-            <div id="tab-1" class="tab-pane fade show p-0 active">
-              <div class="row g-4">
-
-                <% for (let dish of restaurant) { %>
-                  <div class="col-lg-6 mt-4">
-                    <div class="d-flex align-items-center">
-                      <img class="img-fluid rounded" src="<%= dish.url %>" alt=""
-                        style="max-width: 80px; background-position: center center; background-size: cover;">
-                      <div class="w-100 d-flex flex-column pl-4">
-
-                        <div class="d-flex border-bottom pb-2 justify-content-between">
-                          <div class="d-flex justify-content-center align-items-center">
-                            <h5>
-                              <%= dish.dish_name %>
-                            </h5>
-                            <h5 class="text-primary pl-2">$<%= dish.price %>
-                            </h5>
-                          </div>
-
-                          <form class="form d-flex justify-content-center align-items-center">
-                            <input data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>"
-                              data-price="<%= dish.price %>" type="number" name="quantity" style="width: 50px"
-                              placeholder="0" min="0"
-                              oninput='this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null'
-                              value="0" />
-                            <button type="submit" class="btn btn-outline-success ml-2" data-mdb-ripple-color="dark"
-                              style="height: 37px; width:37px;" data-id="<%= dish.id %>">
-                              <i class="fa-solid fa-plus"></i>
-                            </button>
-                          </form>
-                        </div>
-                        <div class="d-flex">
-                          <small class="text-start">
-                            <%= dish.description %>
-                          </small>
-                        </div>
+                <div class="pl-lg-5 ml-md-5">
+                  <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
+                    have been rewritten a thousand times and everything that was left from its origin would be the word
+                    "and" and the Little Blind Text should turn around and return to its own, safe country. A small
+                    river
+                    named Duden flows. </p>
+                  <p> Address: <%= restaurant[0].address %>
+                  </p>
+                  <p> Phone: <%= restaurant[0].phone_number %>
+                  </p>
+                  <div class="special-dishes">
+                    <h3 class="mt-2">Special Recipe</h3>
+                    <div class="row mt-3">
+                      <div class="col-4">
+                        <a href="#" class="thumb-menu">
+                          <img class="img-fluid img-cover rounded"
+                            src="https://hips.hearstapps.com/hmg-prod/images/delish-190618-air-fryer-fried-chicken-361-landscape-pf-1561574618.png?crop=0.668xw:1.00xh;0.0867xw,0&resize=1200:*"
+                            style="height:150px" />
+                          <h6>Australian Organic Beef</h6>
+                        </a>
                       </div>
-
+                      <div class="col-4">
+                        <a href="#" class="thumb-menu">
+                          <img class="img-fluid img-cover rounded"
+                            src="https://i.pinimg.com/736x/a0/96/23/a0962332f9445b2779e138aca6eb312a--masala-spice-magic-box.jpg"
+                            style="height:150px" />
+                          <h6>Australian Organic Beef</h6>
+                        </a>
+                      </div>
+                      <div class="col-4">
+                        <a href="#" class="thumb-menu">
+                          <img class="img-fluid img-cover rounded"
+                            src="https://assets.bonappetit.com/photos/5c619a0408be415aeb84b702/1:1/w_2560%2Cc_limit/Spice-Drawer-Chicken-Wings.jpg"
+                            style="height:150px" />
+                          <h6>Australian Organic Beef</h6>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                  <% } %>
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class='d-flex justify-content-center w-100 mt-5' style="position: relative;">
-          <div id="cart-badge" class="p-2 bg-danger border border-light rounded-circle"
-            style="height: 3px; width: 3px; position: relative; top: -7px; left: 140px; visibility: hidden;">
-          </div>
-          <button id="cart-btn" type="button" class="btn btn-primary " data-toggle="modal"
-            data-target="#exampleModalCenter">
-            Show Carts
-          </button>
-
-        </div>
-      </div>
-    </div>
-    <!-- Menu End -->
-
-    <!-- Footer Start -->
-    <!-- REFACTOR FOOTER ----------------------------------------------------------- -->
-    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-      <div class="container py-5">
-        <div class="row g-5">
-          <div class="col-lg-3 col-md-6">
-            <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
-            <a class="btn btn-link" href="">About Us</a>
-            <a class="btn btn-link" href="">Contact Us</a>
-            <a class="btn btn-link" href="">Reservation</a>
-            <a class="btn btn-link" href="">Privacy Policy</a>
-            <a class="btn btn-link" href="">Terms & Condition</a>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contact</h4>
-            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-            <div class="d-flex pt-2">
-              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Opening</h4>
-            <h5 class="text-light fw-normal">Monday - Saturday</h5>
-            <p>09AM - 09PM</p>
-            <h5 class="text-light fw-normal">Sunday</h5>
-            <p>10AM - 08PM</p>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
-            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-            <div class="position-relative mx-auto" style="max-width: 400px;">
-              <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-              <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="copyright">
-          <div class="row">
-            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-
-              <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-              Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
-              Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-            </div>
-            <div class="col-md-6 text-center text-md-end">
-              <div class="footer-menu">
-                <a href="">Home</a>
-                <a href="">Cookies</a>
-                <a href="">Help</a>
-                <a href="">FQAs</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Footer End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fas fa-arrow-up"></i></a>
-  </div>
-
-  <!-- Cart Modal -->
-  <div class="modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered m-0">
-
-                <thead>
-                  <tr>
-                    <th class="text-center py-3">Dish Name</th>
-                    <th class="text-right py-3">Price</th>
-                    <th class="text-center py-3">Quantity</th>
-                    <th class="text-right py-3">Total</th>
-                  </tr>
-                </thead>
-                <tbody class="table-body">
-
-                </tbody>
-
-              </table>
-            </div>
-
-            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
-              <div class="mt-4">
-              </div>
-              <div class="d-flex">
-                <div class="text-right mt-4 mr-5">
-
-                </div>
-                <div class="text-right mt-4">
-                  <label class="text-muted font-weight-normal m-0">Total price</label>
-                  <div class="cart-total text-large"><strong>$0</strong></div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-        <div class="modal-footer">
-          <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="place-order" type="button" class="btn btn-primary" data-toggle="modal"
-            href="#payment-modal">Pay</button>
-        </div>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  <div class="modal fade" id="payment-modal" role="dialog" aria-labelledby="paymentTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <nav class="nav nav-pills nav-justified mb-4">
-            <button id="customer-cards" class="nav-item nav-link m-2 border-0 active">
-              Cards
+
+      <!-- Menu Start -->
+      <div class="container-xxl py-5 mt-2">
+        <div class="container">
+          <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
+            <h1 class="mb-5">Most Popular Items</h1>
+          </div>
+          <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane fade show p-0 active">
+                <div class="row g-4">
+
+                  <% for (let dish of restaurant) { %>
+                    <div class="col-lg-6 mt-4">
+                      <div class="d-flex align-items-center">
+                        <img class="img-fluid rounded" src="<%= dish.url %>" alt=""
+                          style="max-width: 80px; background-position: center center; background-size: cover;">
+                        <div class="w-100 d-flex flex-column pl-4">
+
+                          <div class="d-flex border-bottom pb-2 justify-content-between">
+                            <div class="d-flex justify-content-center align-items-center">
+                              <h5>
+                                <%= dish.dish_name %>
+                              </h5>
+                              <h5 class="text-primary pl-2">$<%= dish.price %>
+                              </h5>
+                            </div>
+
+                            <form class="form d-flex justify-content-center align-items-center">
+                              <input data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>"
+                                data-price="<%= dish.price %>" type="number" name="quantity" style="width: 50px"
+                                placeholder="0" min="0"
+                                oninput='this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null'
+                                value="0" />
+                              <button type="submit" class="btn btn-outline-success ml-2" data-mdb-ripple-color="dark"
+                                style="height: 37px; width:37px;" data-id="<%= dish.id %>">
+                                <i class="fa-solid fa-plus"></i>
+                              </button>
+                            </form>
+                          </div>
+                          <div class="d-flex">
+                            <small class="text-start">
+                              <%= dish.description %>
+                            </small>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <% } %>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class='d-flex justify-content-center w-100 mt-5' style="position: relative;">
+            <div id="cart-badge" class="p-2 bg-danger border border-light rounded-circle"
+              style="height: 3px; width: 3px; position: relative; top: -9px; left: 142px; visibility: hidden;">
+            </div>
+            <button id="cart-btn" type="button" class="btn btn-primary " data-toggle="modal"
+              data-target="#exampleModalCenter">
+              Show Carts
             </button>
-            <button id="add-new-cards" class="nav-item nav-link m-2 border-0">
-              Add Card
-            </button>
-          </nav>
-          <div id="modal-cards-area">
 
           </div>
-
-          <div>
-            <form id="payment-form">
-              <div id="payment-element">
-              </div>
-              <div id="error-message">
-              </div>
-              <div class="w-100 d-flex justify-content-center mt-4 mb-4">
-                <div id="modal-spinner" class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
-              <div id="add-card-btn" class="modal-footer">
-                <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="place-order" type="submit" class="btn btn-primary">Place Order 1</button>
-              </div>
-            </form>
-          </div>
-
-          <div id="cards-btn" class="modal-footer">
-            <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="place-order-2" type="button" class="btn btn-primary">Place Order 2</button>
-          </div>
-
-
         </div>
-
       </div>
-    </div>
+      <!-- Menu End -->
+
+      <%- include('partials/_footer') %>
+      <%- include('partials/_btn_to_top') %>
   </div>
+
+  <%- include('partials/_customer_order_modal') %>
+  <%- include('partials/_credit_card_modal') %>
 
 </body>
 
