@@ -43,7 +43,6 @@ router.post('/register', (req, res) => {
         phone: req.body.phone_number
       };
       return stripe.customers.create(param).then((customer)=>{
-        console.log(customer.id);
         const password = bcrypt.hashSync(req.body.password, salt);
         return addNewUser(req.body.name, req.body.email, password, req.body.phone_number, customer.id)
           .then(user => {

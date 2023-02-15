@@ -4,7 +4,7 @@ const { sendTextMessage } = require('../helpers/sms');
 const { orderProcessing } = require('../helpers/orders');
 const { placeOrder, getSpecificOrder, getTempReceipt, setReceipt } = require('../db/queries/orders');
 const { getOwnerSMS, setSocketConnection, getUserById } = require('../db/queries/users');
-const { savePaymentInfo } = require('../db/queries/payment');
+const { savePaymentInfo,getPaymentsById, getAPaymentById } = require('../db/queries/payment');
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 router.post('/place-order', (req, res) => {
@@ -58,8 +58,6 @@ router.post('/request-payment', (req, res) => {
 router.get('/stripe-info', (req, res) => {
   if (req.query.redirect_status === 'succeeded') {
     return getTempReceipt(req.query.payment_intent_client_secret).then((order) => {
-      console.log(order);
-
       setReceipt(order.id, req.query.payment_intent).then((sameOrder) => {
         getOwnerSMS(1).then((owner) => {
           sendTextMessage(owner['phone_number'], "NEW ORDER!");
@@ -70,7 +68,6 @@ router.get('/stripe-info', (req, res) => {
               customer: `${order.cus_id}`,
               type: 'card',
             }).then((details)=> {
-              console.log(details.data);
               for (const card of details.data) {
                 savePaymentInfo(req.session.user_id, card.id, card.card.last4);
               }
@@ -84,5 +81,49 @@ router.get('/stripe-info', (req, res) => {
   }
   res.redirect('/customers/menu-page');
 });
+
+router.get('/payment-methods', (req, res) => {
+  getPaymentsById(req.session.user_id).then((payments)=>{
+    return res.json({ payments });
+  });
+});
+
+router.post('/stored-cards-payment', (req, res) => {
+  const info = JSON.parse(req.body.data);
+
+  placeOrder(req.session.user_id, req.body.finalOrder).then((order) => {
+    if (order) {
+      getAPaymentById(req.session.user_id, info.creditcard).then((payment) => {
+        stripe.paymentIntents.create({
+          amount: Math.round(info.totalPayment * 100),
+          currency: 'usd',
+          customer: payment.cus_id,
+          payment_method: payment.payment_method,
+          off_session: true,
+          confirm: true,
+        }).then((paymentIntent) => {
+
+          getOwnerSMS(1).then((owner) => {
+            sendTextMessage(owner['phone_number'], "NEW ORDER!");
+
+            getSpecificOrder(order.id).then((data) => {
+              const cleanOrders = orderProcessing(data);
+              req.io.sockets.to(owner['socket_conn']).emit('receive-message', cleanOrders);
+            });
+          });
+
+          setReceipt(order.id, paymentIntent.id);
+
+          return res.json({ message: "success" });
+        });
+      });
+
+    }
+  });
+
+
+});
+
+
 
 module.exports = router;

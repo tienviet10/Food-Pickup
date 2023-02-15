@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
@@ -25,15 +26,13 @@
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
-
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"
     integrity="sha512-rwu37NnL8piEGiFhe2c5j4GahN+gFsIn9k/0hkRY44iz0pc81tBNaUN56qF8X4fy+5pgAAgYi2C9FXdetne5sQ=="
@@ -79,8 +78,74 @@
     <!-- Navbar & Hero End -->
 
 
+    <section id="gtco-welcome" class="bg-white section-padding">
+      <div class="container">
+        <div class="section-content">
+          <div class="row">
+            <div id="restaurant-picture"
+              class="col-sm-5 img-bg d-flex shadow align-items-center justify-content-center justify-content-md-end img-2 mt-5 rounded"
+              style="background-image: url(https://static6.businessinsider.com/image/5436f70569beddc5719cf92b-1200/25-girl-and-the-goat-chicago.jpg); height: 520px;">
+
+            </div>
+            <div class="col-sm-7 py-5 pl-md-0 pl-4">
+              <div class="heading-section pl-lg-5 ml-md-5">
+                <span class="subheading">
+                  About
+
+                </span>
+                <h2>
+                  Welcome to <%= restaurant[0].name %>
+                </h2>
+
+              </div>
+              <div class="pl-lg-5 ml-md-5">
+                <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
+                  have been rewritten a thousand times and everything that was left from its origin would be the word
+                  "and" and the Little Blind Text should turn around and return to its own, safe country. A small river
+                  named Duden flows. </p>
+                <p> Address: <%= restaurant[0].address %>
+                </p>
+                <p> Phone: <%= restaurant[0].phone_number %>
+                </p>
+                <div class="special-dishes">
+                  <h3 class="mt-2">Special Recipe</h3>
+                  <div class="row mt-3">
+                    <div class="col-4">
+                      <a href="#" class="thumb-menu">
+                        <img class="img-fluid img-cover rounded"
+                          src="https://hips.hearstapps.com/hmg-prod/images/delish-190618-air-fryer-fried-chicken-361-landscape-pf-1561574618.png?crop=0.668xw:1.00xh;0.0867xw,0&resize=1200:*"
+                          style="height:150px" />
+                        <h6>Australian Organic Beef</h6>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <a href="#" class="thumb-menu">
+                        <img class="img-fluid img-cover rounded"
+                          src="https://i.pinimg.com/736x/a0/96/23/a0962332f9445b2779e138aca6eb312a--masala-spice-magic-box.jpg"
+                          style="height:150px" />
+                        <h6>Australian Organic Beef</h6>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <a href="#" class="thumb-menu">
+                        <img class="img-fluid img-cover rounded"
+                          src="https://assets.bonappetit.com/photos/5c619a0408be415aeb84b702/1:1/w_2560%2Cc_limit/Spice-Drawer-Chicken-Wings.jpg"
+                          style="height:150px" />
+                        <h6>Australian Organic Beef</h6>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- Menu Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-5 mt-2">
       <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
           <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
@@ -108,8 +173,11 @@
                           </div>
 
                           <form class="form d-flex justify-content-center align-items-center">
-                            <input data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>" data-price="<%= dish.price %>" type="number" name="quantity" style="width: 50px"
-                              placeholder="0" min="0" oninput='this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null' value="0"/>
+                            <input data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>"
+                              data-price="<%= dish.price %>" type="number" name="quantity" style="width: 50px"
+                              placeholder="0" min="0"
+                              oninput='this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null'
+                              value="0" />
                             <button type="submit" class="btn btn-outline-success ml-2" data-mdb-ripple-color="dark"
                               style="height: 37px; width:37px;" data-id="<%= dish.id %>">
                               <i class="fa-solid fa-plus"></i>
@@ -134,9 +202,11 @@
         </div>
 
         <div class='d-flex justify-content-center w-100 mt-5' style="position: relative;">
-          <div id="cart-badge" class="p-2 bg-danger border border-light rounded-circle" style="height: 3px; width: 3px; position: relative; top: -7px; left: 140px; display: none;">
+          <div id="cart-badge" class="p-2 bg-danger border border-light rounded-circle"
+            style="height: 3px; width: 3px; position: relative; top: -7px; left: 140px; visibility: hidden;">
           </div>
-          <button id="cart-btn" type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter">
+          <button id="cart-btn" type="button" class="btn btn-primary " data-toggle="modal"
+            data-target="#exampleModalCenter">
             Show Carts
           </button>
 
@@ -144,7 +214,6 @@
       </div>
     </div>
     <!-- Menu End -->
-
 
     <!-- Footer Start -->
     <!-- REFACTOR FOOTER ----------------------------------------------------------- -->
@@ -214,46 +283,11 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fas fa-arrow-up"></i></a>
   </div>
 
-
-
-
-
-
-
-  <h1>MAIN PAGE VIEWWWWWW!</h1>
-  <div>
-    <h2>Menu</h2>
-    <% for (let dish of restaurant) { %>
-      <div>
-        <%= dish.dish_name %>
-          <%= dish.price %>
-            <%= dish.description %>
-              <%= dish.id %>
-      </div>
-      <button data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>" data-price="<%= dish.price %>"
-        class="add-cart-btn">Add</button>
-      <% } %>
-
-  </div>
-  <div>
-    <h2>Restaurant Info</h2>
-    <h5>
-      <%= restaurant[0].name %>
-    </h5>
-    <h5>
-      <%= restaurant[0].phone_number %>
-    </h5>
-    <h5>
-      <%= restaurant[0].address %>
-    </h5>
-    <h5>
-      <%= restaurant[0].rating %>
-    </h5>
-  </div>
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  <!-- Cart Modal -->
+  <div class="modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -301,26 +335,65 @@
         </div>
         <div class="modal-footer">
           <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="place-order" type="button" class="btn btn-primary">Place Order</button>
+          <button id="place-order" type="button" class="btn btn-primary" data-toggle="modal"
+            href="#payment-modal">Pay</button>
         </div>
       </div>
     </div>
   </div>
-  <button id="cart-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Show Carts
-  </button>
-  <div id="creditcard-container">
 
+  <div class="modal fade" id="payment-modal" role="dialog" aria-labelledby="paymentTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Carts</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <nav class="nav nav-pills nav-justified mb-4">
+            <button id="customer-cards" class="nav-item nav-link m-2 border-0 active">
+              Cards
+            </button>
+            <button id="add-new-cards" class="nav-item nav-link m-2 border-0">
+              Add Card
+            </button>
+          </nav>
+          <div id="modal-cards-area">
+
+          </div>
+
+          <div>
+            <form id="payment-form">
+              <div id="payment-element">
+              </div>
+              <div id="error-message">
+              </div>
+              <div class="w-100 d-flex justify-content-center mt-4 mb-4">
+                <div id="modal-spinner" class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+              <div id="add-card-btn" class="modal-footer">
+                <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="place-order" type="submit" class="btn btn-primary">Place Order 1</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="cards-btn" class="modal-footer">
+            <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="place-order-2" type="button" class="btn btn-primary">Place Order 2</button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
   </div>
-  <form id="payment-form">
-    <div id="payment-element">
-      <!-- Elements will create form elements here -->
-    </div>
-    <button id="submit">Pay Now</button>
-    <div id="error-message">
-      <!-- Display error message to your customers here -->
-    </div>
-  </form>
+
 </body>
 
 </html>

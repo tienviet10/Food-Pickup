@@ -27,7 +27,7 @@ const placeOrder = (userId, orders, receiptId, totalAmount) => {
       [userId, receiptId, totalAmount]
     )
     .then((data) => {
-      console.log(data.rows[0]);
+
       for (const item in orders) {
         db.query(
           "INSERT INTO order_details (order_id, dish_id, quantity) VALUES ($1, $2, $3) RETURNING *;",

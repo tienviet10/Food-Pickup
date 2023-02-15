@@ -59,6 +59,7 @@ $(() => {
   });
 
   $("#place-order").on("click", (event) => {
+    $('#modal-spinner').css('display', 'flex');
     const finalOrder = {};
     for (const dishId in foodCart) {
       finalOrder[dishId] = foodCart[dishId].quantity;
@@ -69,94 +70,168 @@ $(() => {
       totalPayment
     };
 
-    $('#creditcard-container').append('<div>OLD</div>');
+    // $('.modal-body').append('<div>OLD</div>');
 
-    $.post('/api/customers/request-payment', { data: JSON.stringify(sentVar) })
-      .done((response) => {
-        // foodCart = {};
-        $("#close-modal").click();
-        console.log(response);
-        const options = {
-          clientSecret: response.client_secret,
-          // Fully customizable with appearance API.
-          appearance: {/*...*/ },
-        };
+    $("#close-modal").click();
 
-        // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 3
-        const elements = stripe.elements(options);
+    $.get("/api/customers/payment-methods").then(data => {
+      $('#modal-spinner').css('display', 'none');
+      //$('#modal-cards-area').empty();
+      $('#payment-element').empty();
+      for (const paymentIndex in data.payments) {
 
-        // Create and mount the Payment Element
-        const paymentElement = elements.create('payment');
-        paymentElement.mount('#payment-element');
+        $('#modal-cards-area').append(`
+        <div class="form-check m-2">
+          <input class="form-check-input" type="radio" name="credit-card-number" id="flexRadioDefault_${data.payments[paymentIndex].id}" value="${data.payments[paymentIndex].id}" ${paymentIndex === '0' ? 'checked' : ''}>
+          <label class="form-check-label" for="flexRadioDefault_${data.payments[paymentIndex].id}">
+            **** **** **** ${data.payments[paymentIndex].last4}
+          </label>
+        </div>
 
-        const form = document.getElementById('payment-form');
+        `);
+      }
+    });
 
-        form.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          console.log(event);
-          const { error } = await stripe.confirmPayment({
-            //`Elements` instance that was used to create the Payment Element
-            elements,
-            confirmParams: {
-              return_url: 'http://localhost:8080/api/customers/stripe-info',
-            },
+    $('#add-new-cards').on('click', function() {
+      $('#modal-spinner').css('display', 'flex');
+      $('#customer-cards').removeClass("active");
+      $(this).addClass("active");
+      $('#modal-cards-area').empty();
+      $('#cards-btn').css('display', 'none');
+      $('#add-card-btn').css('display', 'flex');
+      $.post('/api/customers/request-payment', { data: JSON.stringify(sentVar) })
+        .done((response) => {
+          // foodCart = {};
+
+          const options = {
+            clientSecret: response.client_secret,
+            // Fully customizable with appearance API.
+            appearance: {/*...*/ },
+          };
+
+          // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 3
+          const elements = stripe.elements(options);
+
+          // Create and mount the Payment Element
+          const paymentElement = elements.create('payment');
+          paymentElement.mount('#payment-element');
+
+          const form = document.getElementById('payment-form');
+
+          setTimeout(() => {
+            $('#modal-spinner').css('display', 'none');
+          }, 350);
+
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const { error } = await stripe.confirmPayment({
+              //`Elements` instance that was used to create the Payment Element
+              elements,
+              confirmParams: {
+                return_url: 'http://localhost:8080/api/customers/stripe-info',
+              },
+            });
+
+            if (error) {
+              // This point will only be reached if there is an immediate error when
+              // confirming the payment. Show error to your customer (for example, payment
+              // details incomplete)
+              const messageContainer = document.querySelector('#error-message');
+              messageContainer.textContent = error.message;
+            } else {
+              // Your customer will be redirected to your `return_url`. For some payment
+              // methods like iDEAL, your customer will be redirected to an intermediate
+              // site first to authorize the payment, then redirected to the `return_url`.
+              const clientSecret = new URLSearchParams(window.location.search).get(
+                'payment_intent_client_secret'
+              );
+
+              // Retrieve the PaymentIntent
+              stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+                const message = document.querySelector('#message');
+
+                // Inspect the PaymentIntent `status` to indicate the status of the payment
+                // to your customer.
+                //
+                // Some payment methods will [immediately succeed or fail][0] upon
+                // confirmation, while others will first enter a `processing` state.
+                //
+                // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
+                switch (paymentIntent.status) {
+                  case 'succeeded':
+                    message.innerText = 'Success! Payment received.';
+                    break;
+
+                  case 'processing':
+                    message.innerText = "Payment processing. We'll update you when payment is received.";
+                    break;
+
+                  case 'requires_payment_method':
+                    message.innerText = 'Payment failed. Please try another payment method.';
+                    // Redirect your user back to your payment page to attempt collecting
+                    // payment again
+                    break;
+
+                  default:
+                    message.innerText = 'Something went wrong.';
+                    break;
+                }
+              });
+            }
           });
 
-          if (error) {
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Show error to your customer (for example, payment
-            // details incomplete)
-            const messageContainer = document.querySelector('#error-message');
-            messageContainer.textContent = error.message;
-          } else {
-            // Your customer will be redirected to your `return_url`. For some payment
-            // methods like iDEAL, your customer will be redirected to an intermediate
-            // site first to authorize the payment, then redirected to the `return_url`.
-            const clientSecret = new URLSearchParams(window.location.search).get(
-              'payment_intent_client_secret'
-            );
+        });
+      ///// -> TODO: Make sure this is incorporated
+      // $.post("/api/customers/place-order", finalOrder, function (data, status) {
+      //   foodCart = {};
+      //   $("#close-modal").click();
+      // });
+    });
 
-            // Retrieve the PaymentIntent
-            stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-              const message = document.querySelector('#message');
-              console.log(paymentIntent.status);
-              // Inspect the PaymentIntent `status` to indicate the status of the payment
-              // to your customer.
-              //
-              // Some payment methods will [immediately succeed or fail][0] upon
-              // confirmation, while others will first enter a `processing` state.
-              //
-              // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
-              switch (paymentIntent.status) {
-                case 'succeeded':
-                  message.innerText = 'Success! Payment received.';
-                  break;
+    $('#place-order-2').on('click', function() {
+      const chosenCreditCard = $('input:radio[name=credit-card-number]:checked').val();
 
-                case 'processing':
-                  message.innerText = "Payment processing. We'll update you when payment is received.";
-                  break;
+      const finalOrder = {};
+      for (const dishId in foodCart) {
+        finalOrder[dishId] = foodCart[dishId].quantity;
+      }
 
-                case 'requires_payment_method':
-                  message.innerText = 'Payment failed. Please try another payment method.';
-                  // Redirect your user back to your payment page to attempt collecting
-                  // payment again
-                  break;
+      const sentVar = {
+        finalOrder,
+        totalPayment,
+        creditcard: chosenCreditCard,
+      };
 
-                default:
-                  message.innerText = 'Something went wrong.';
-                  break;
-              }
-            });
-          }
+      $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
+        .done((response) => {
+          console.log(response);
         });
 
+    });
 
+    $('#customer-cards').on('click', function() {
+      $('#add-new-cards').removeClass("active");
+      $(this).addClass("active");
+      $.get("/api/customers/payment-methods").then(data => {
+        $('#modal-spinner').css('display', 'none');
+        $('#cards-btn').css('display', 'flex');
+        $('#add-card-btn').css('display', 'none');
+        $('#modal-cards-area').empty();
+        $('#payment-element').empty();
+        for (const paymentIndex in data.payments) {
+          $('#modal-cards-area').append(`
+          <div class="form-check m-2">
+          <input class="form-check-input" type="radio" name="credit-card-number" id="flexRadioDefault_${data.payments[paymentIndex].id}" value="${data.payments[paymentIndex].id}" ${paymentIndex === '0' ? 'checked' : ''}>
+          <label class="form-check-label" for="flexRadioDefault_${data.payments[paymentIndex].id}">
+            **** **** **** ${data.payments[paymentIndex].last4}
+          </label>
+        </div>
+          `);
+        }
       });
-    ///// -> TODO: Make sure this is incorporated
-    // $.post("/api/customers/place-order", finalOrder, function (data, status) {
-    //   foodCart = {};
-    //   $("#close-modal").click();
-    // });
+    });
+
   });
 
   socket.on('connect', () => {
@@ -172,23 +247,24 @@ $(() => {
 
   $('.form').on('submit', function(event) {
     event.preventDefault();
-    console.log($(this).find('input[name="quantity"]').val());
-    console.log($(this).find('input[name="quantity"]').data('id'));
 
     const $inputField = $(this).find('input[name="quantity"]');
     const dishId = $inputField.data('id');
     const dishName = $inputField.data('name');
     const dishPrice = $inputField.data('price');
-    if (foodCart[dishId]) {
-      foodCart[dishId].quantity += parseInt($inputField.val());
-    } else {
-      foodCart[dishId] = {
-        quantity: parseInt($inputField.val()),
-        name: dishName,
-        price: dishPrice,
-      };
+    const dishQuantity = parseInt($inputField.val());
+    if (dishQuantity !== 0) {
+      if (foodCart[dishId]) {
+        foodCart[dishId].quantity += dishQuantity;
+      } else {
+        foodCart[dishId] = {
+          quantity: dishQuantity,
+          name: dishName,
+          price: dishPrice,
+        };
+      }
+      $('#cart-badge').css('visibility', 'visible');
+      $inputField.val(0);
     }
-    $('#cart-badge').css('display', 'block');
-    $inputField.val(0);
   });
 });

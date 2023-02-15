@@ -6,7 +6,7 @@ const savePaymentInfo = (userId, paymentMethod, last4) => {
       "SELECT last4 FROM payment WHERE user_id = $1 AND last4 = $2", [userId, last4]
     )
     .then((data) => {
-      console.log(data.rowCount === 0);
+
       if (data.rowCount === 0) {
         return db
           .query(
@@ -20,4 +20,24 @@ const savePaymentInfo = (userId, paymentMethod, last4) => {
     });
 };
 
-module.exports = { savePaymentInfo };
+const getPaymentsById = (userId) => {
+  return db
+    .query(
+      "SELECT id, last4 FROM payment WHERE user_id = $1", [userId]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
+
+const getAPaymentById = (userId, paymentId) => {
+  return db
+    .query(
+      "SELECT users.cus_id, payment_method FROM payment JOIN users ON user_id = users.id WHERE user_id = $1 AND payment.id = $2", [userId, paymentId]
+    )
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { savePaymentInfo, getPaymentsById, getAPaymentById };
