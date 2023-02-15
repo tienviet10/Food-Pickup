@@ -5,7 +5,6 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-// const { getUserById } = require('./db/queries/users.js');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -41,15 +40,6 @@ app.use('/restaurants', auth("res", null), restaurantsRoutes);
 // --> maybe add common api
 
 app.get('/', (req, res) => {
-  // if (req.session.user_id) {
-  //   getUserById(req.session.user_id).then((user) => {
-  //     const templateVar = { user: true };
-  //     res.render('home_page', templateVar);
-  //   });
-  // } else {
-  //   const templateVar = { user: false };
-  //   res.render('home_page', templateVar);
-  // }
   const templateVar = { user: false };
   res.render('home_page', templateVar);
 });
