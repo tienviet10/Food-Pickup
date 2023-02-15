@@ -9,12 +9,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav ms-auto py-0 pe-4">
-        <a href="/" class="nav-item nav-link">Home</a>
         <% if (user) {%>
           <a href="/customers/menu-page" class="nav-item nav-link">Restaurants</a>
           <a href="/customers/orders-page" class="nav-item nav-link">Orders</a>
           <a href="/auth/logout" class="nav-item nav-link">Logout</a>
         <% } else {%>
+          <a href="/" class="nav-item nav-link">Home</a>
           <a class="nav-item nav-link text-white" href="/auth/login">Sign In</a>
           <a class="nav-item nav-link text-white" href="/auth/register">Register</a>
         <% } %>

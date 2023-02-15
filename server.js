@@ -5,7 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-const { getUserById } = require('./db/queries/users.js');
+// const { getUserById } = require('./db/queries/users.js');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -34,22 +34,24 @@ const { auth } = require('./helpers/auth');
 
 
 app.use('/auth', authRoutes);
-// --> maybe add common api
 app.use('/api/customers',auth("cus", io), customerApiRoutes);
 app.use('/api/restaurants',auth("res", io), restaurantApiRoutes);
 app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
+// --> maybe add common api
 
 app.get('/', (req, res) => {
-  if (req.session.user_id) {
-    getUserById(req.session.user_id).then((user) => {
-      const templateVar = { user: true };
-      res.render('home_page', templateVar);
-    });
-  } else {
-    const templateVar = { user: false };
-    res.render('home_page', templateVar);
-  }
+  // if (req.session.user_id) {
+  //   getUserById(req.session.user_id).then((user) => {
+  //     const templateVar = { user: true };
+  //     res.render('home_page', templateVar);
+  //   });
+  // } else {
+  //   const templateVar = { user: false };
+  //   res.render('home_page', templateVar);
+  // }
+  const templateVar = { user: false };
+  res.render('home_page', templateVar);
 });
 
 app.get('*', (req, res) => {

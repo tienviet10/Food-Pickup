@@ -55,6 +55,7 @@ $(() => {
 
   $("#place-order").on("click", (event) => {
     $('#modal-spinner').css('display', 'flex');
+    $('#modal-cards-area').empty();
     const finalOrder = {};
     for (const dishId in foodCart) {
       finalOrder[dishId] = foodCart[dishId].quantity;
@@ -198,7 +199,6 @@ $(() => {
       $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
         .done((response) => {
           console.log(response);
-          $('#modal-cards-area').empty();
           $("#close-modal-2").click();
         });
 

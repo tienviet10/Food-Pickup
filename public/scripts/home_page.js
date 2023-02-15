@@ -1,6 +1,4 @@
 $(() => {
-  const socket = io();
-
   // Spinner
   const spinner = function() {
     setTimeout(function() {
@@ -10,17 +8,6 @@ $(() => {
     }, 1);
   };
   spinner();
-
-  socket.on('connect', () => {
-    console.log(socket.id);
-    $.post('/api/customers/conn', { conn: socket.id });
-  });
-
-
-  socket.on("receive-message", () => {
-    console.log("Order confirmed");
-
-  });
 
   // make nav link active
   const path = window.location.href;
