@@ -237,6 +237,11 @@
   }
 }
 
+.modal {
+  max-height: 90vh;
+  overflow: auto !important;
+}
+
 .commentcontainer{
   border: 3px solid #183a1d4f!important;
   margin-top: 13px!important;
