@@ -95,17 +95,12 @@
   color: #243763 !important;
 }
 
-
-/*** Navbar ***/
-
-
-
 /*** Section Title ***/
 .section-title {
   position: relative;
   display: inline-block;
-
 }
+
 .service-item {
   box-shadow: 0px 0px 4px 0px #0000009e;
   transition: .5s;
