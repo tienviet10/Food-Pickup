@@ -87,9 +87,10 @@ $(() => {
     const $statusField = $order.find('.status').closest('td');
     if (order.status === 'pending') {
       $statusField.empty().append(`<span class="status text-warning">&bull;</span> pending`);
+    } else {
+      timer(order.expected_completion, $order.find('.timer'), $statusField);
     }
 
-    timer(order.expected_completion, $order.find('.timer'), $statusField);
 
     $order.find(`#row_${order.id}`).on('click', function() {
       retrieveOrderDetail();
