@@ -126,7 +126,7 @@ $(() => {
               //`Elements` instance that was used to create the Payment Element
               elements,
               confirmParams: {
-                return_url: `https://foodwise.up.railway.app/api/customers/stripe-info`,
+                return_url: `http://localhost:8080/api/customers/stripe-info`,
               },
             });
 
@@ -189,7 +189,6 @@ $(() => {
     $(this).prop('disabled', true);
     $('#modal-spinner').css('display', 'flex');
     const chosenCreditCard = $('input:radio[name=credit-card-number]:checked').val();
-    console.log(chosenCreditCard);
     const finalOrder = {};
     for (const dishId in foodCart) {
       finalOrder[dishId] = foodCart[dishId].quantity;
@@ -203,7 +202,7 @@ $(() => {
 
     $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
       .done((response) => {
-        console.log(response);
+
         foodCart = {};
         totalPayment = 0;
         $('#cart-badge').css('visibility', 'hidden');
@@ -236,13 +235,13 @@ $(() => {
   });
 
   socket.on('connect', () => {
-    console.log(socket.id);
     $.post('/api/customers/conn', { conn: socket.id });
   });
 
 
-  socket.on("receive-message", () => {
+  socket.on("receive-message", (message) => {
     console.log("Order confirmed");
+    $('.toast-body').text(message);
     $('.toast').toast('show');
   });
 

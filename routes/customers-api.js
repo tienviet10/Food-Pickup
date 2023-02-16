@@ -34,7 +34,6 @@ router.post('/conn', (req, res) => {
 
 router.post('/request-payment', (req, res) => {
   const info = JSON.parse(req.body.data);
-  console.log(Math.round(info.totalPayment * 100));
 
   getUserById(req.session.user_id).then((user) => {
     stripe.paymentIntents.create({
@@ -89,7 +88,6 @@ router.get('/payment-methods', (req, res) => {
 });
 
 router.post('/stored-cards-payment', (req, res) => {
-  console.log("first");
   const info = JSON.parse(req.body.data);
   getAPaymentById(req.session.user_id, info.creditcard).then((payment) => {
     stripe.paymentIntents.create({
@@ -104,7 +102,7 @@ router.post('/stored-cards-payment', (req, res) => {
         if (order) {
           getOwnerSMS(1).then((owner) => {
             sendTextMessage(owner['phone_number'], "NEW ORDER!");
-            console.log(order);
+
             getSpecificOrder(order.id).then((data) => {
               //const cleanOrders = orderProcessing(data);
               req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
@@ -126,7 +124,7 @@ router.get('/orders', (req, res) => {
 });
 
 router.post('/order-details', (req, res) => {
-  console.log(req.body);
+
   getOrderDetailsById(req.session.user_id, req.body.orderId).then((order) => {
     return res.json({ order });
   });

@@ -221,3 +221,16 @@
 .foodwise-text :hover{
   color:black;
 }
+
+.toast {
+  min-width: 200px;
+  top: 20px;
+  right: 20px;
+}
+
+@media (max-width: 991.98px) {
+  .toast {
+    top: -50px !important;
+    right: 10px !important;
+  }
+}

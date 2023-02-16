@@ -70,7 +70,7 @@ router.post('/register', (req, res) => {
       });
     }
   }).catch((err) => {
-    console.log(err);
+
     res.redirect('/register'); // TODO: display with errors
   });
 });

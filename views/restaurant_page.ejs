@@ -48,8 +48,9 @@
 <body>
   <%- include('partials/_spinner') %>
     <%- include('partials/_header_restaurants', {user}) %>
-      <main>
-        <div class="container-xl">
+    <main>
+      <%- include('partials/_toast') %>
+      <div class="container-xl">
           <div class="table-responsive">
             <div class="table-wrapper">
               <table class="table table-striped table-hover">

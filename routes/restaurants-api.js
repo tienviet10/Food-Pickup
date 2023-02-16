@@ -21,6 +21,10 @@ router.post("/accept-order", (req, res) => {
           completeOrder(orderId).then((data) => {
             if (data) {
               sendTextMessage(owner['phone_number'], "Your Order is READY!");
+
+              getUserSMS(orderId).then((owner) => {
+                req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Your order is READY!!");
+              });
             }
           });
         });

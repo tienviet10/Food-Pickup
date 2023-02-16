@@ -18,7 +18,7 @@ $(() => {
   };
   spinner();
 
-  const timer = (date, $element) => {
+  const timer = (date, $ele1, $ele2) => {
     const countDownDate = new Date(date).getTime();
 
     const runTimer = () => {
@@ -27,11 +27,12 @@ $(() => {
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.ceil((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-      console.log(distance / 1000);
       if (distance < 0) {
-        $element.text(0 + "h " + 0 + "m ");
+        $ele1.text(0 + "h " + 0 + "m ");
+        $ele2.empty().append(`<span class="status text-success">&bull;</span> completed`);
       } else {
-        $element.text(hours + "h " + minutes + "m ");
+        $ele1.text(hours + "h " + minutes + "m ");
+        $ele2.empty().append(`<span class="status text-danger">&bull;</span> in progress`);
       }
       return distance;
     };
@@ -47,7 +48,6 @@ $(() => {
   };
 
   const createOrderElement = (order) => {
-    console.log(order);
 
     const formTemplate = `
     <div id="prep_${order.id}">
@@ -72,14 +72,21 @@ $(() => {
         </td>
       </tr>
     `);
-    const timerField = $order.find('.timer');
+
+    const $statusField = $order.find('.status').closest('td');
+    if (order.status === 'pending') {
+      $statusField.empty().append(`<span class="status text-warning">&bull;</span> pending`);
+    }
+
+
+    const $timerField = $order.find('.timer');
     if (order.expected_completion) {
-      timer(order.expected_completion, timerField);
+      timer(order.expected_completion, $timerField, $statusField);
     } else {
       const $form = $order.find('form');
       $form.on("submit", function(event) {
         event.preventDefault();
-        console.log("first");
+
         const inputField = $(this).find('input[name="duration"]');
         const orderId = inputField.data("id");
         const duration = inputField.val();
@@ -91,7 +98,7 @@ $(() => {
           { orderId, expectedCompletion },
           function(data, status) {
             $(`#${removeForm}`).empty();
-            timer(expectedCompletion * 1000, timerField);
+            timer(expectedCompletion * 1000, $timerField, $statusField);
             //$currentOrder.remove();
           }
         );
@@ -99,13 +106,6 @@ $(() => {
     }
 
 
-    let statusIndicator = 'text-warning';
-    if (order.status === 'completed') {
-      statusIndicator = 'text-success';
-    } else if (order.status === 'in progress') {
-      statusIndicator = 'text-info';
-    }
-    $order.find('.status').addClass(statusIndicator);
     $order.find(`#row_${order.id}`).on('click', function() {
       retrieveOrderDetail();
     });
@@ -114,9 +114,7 @@ $(() => {
     });
 
     const retrieveOrderDetail = () => {
-      console.log(order.id);
       $.post("/api/restaurants/order-details", {orderId: order.id}).then(data => {
-        console.log(data.order);
         const cartBody = $(".table-body");
         cartBody.empty();
         const foodCart = data.order;
@@ -215,12 +213,12 @@ $(() => {
   };
 
   socket.on('connect', () => {
-    console.log(socket.id);
     $.post('/api/restaurants/conn', { conn: socket.id });
   });
 
   socket.on("receive-message", (data) => {
-    console.log(data);
+    $('.toast').toast('show');
+    $('.toast-body').text('NEW ORDER!');
     renderOrders(data, "new");
   });
 
