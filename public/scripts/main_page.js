@@ -204,6 +204,7 @@ $(() => {
           console.log(response);
           foodCart = {};
           totalPayment = 0;
+          $('#cart-badge').css('visibility', 'hidden');
           $('#modal-spinner').css('display', 'none');
           $(this).prop('disabled', false);
           $("#close-modal-2").click();
