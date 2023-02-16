@@ -126,7 +126,7 @@ $(() => {
               //`Elements` instance that was used to create the Payment Element
               elements,
               confirmParams: {
-                return_url: 'http://localhost:8080/api/customers/stripe-info',
+                return_url: `${process.env.API}/api/customers/stripe-info`,
               },
             });
 

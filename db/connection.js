@@ -11,6 +11,9 @@ const dbParams = {
 
 const db = new Pool(dbParams);
 
+// const connectionString = process.env.DB_CONNECTION_RAILWAY;
+// const db = new Pool(connectionString);
+
 db.connect();
 
 module.exports = db;
