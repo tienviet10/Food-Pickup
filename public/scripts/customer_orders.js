@@ -27,7 +27,6 @@ $(() => {
   });
 
   socket.on("receive-message", (message) => {
-    console.log(message);
     $('.toast-body').text(message);
     $('.toast').toast('show');
     loadCustomerOrders();

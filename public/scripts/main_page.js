@@ -55,6 +55,14 @@ $(() => {
 
   $("#pay-order-btn").on("click", (event) => {
     $('#modal-spinner').css('display', 'flex');
+
+    // Reset if the card is in Add Payment Tab
+    $('#add-new-cards').removeClass("active");
+    $('#customer-cards').addClass("active");
+    $('#cards-btn').css('display', 'flex');
+    $('#add-card-btn').css('display', 'none');
+    $('#payment-element').empty();
+
     $('#modal-cards-area').empty();
     const finalOrder = {};
     for (const dishId in foodCart) {
@@ -66,7 +74,6 @@ $(() => {
       totalPayment
     };
 
-    // $('.modal-body').append('<div>OLD</div>');
 
     $("#close-modal").click();
 
@@ -242,7 +249,6 @@ $(() => {
 
 
   socket.on("receive-message", (message) => {
-    console.log("Order confirmed");
     $('.toast-body').text(message);
     $('.toast').toast('show');
   });

@@ -15,9 +15,7 @@ router.post('/conn', (req, res) => {
 });
 
 router.post('/request-payment', (req, res) => {
-  console.log("first");
   const info = JSON.parse(req.body.data);
-  console.log(info);
   getUserById(req.session.user_id).then((user) => {
     stripe.paymentIntents.create({
       customer: user.cus_id,
