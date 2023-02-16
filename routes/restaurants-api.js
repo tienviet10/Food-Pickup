@@ -3,9 +3,7 @@ const router = express.Router();
 const { acceptOrder, completeOrder } = require("../db/queries/orders");
 const { getUserSMS, setSocketConnection } = require("../db/queries/users");
 const { sendTextMessage } = require('../helpers/sms');
-const { getOrders } = require('../db/queries/orders');
-const { getUserById } = require('../db/queries/users');
-const { orderProcessing } = require('../helpers/orders');
+const { getOrders, getOrderDetailsByIdRestaurant } = require('../db/queries/orders');
 
 const schedule = require('node-schedule');
 
@@ -34,18 +32,17 @@ router.post("/accept-order", (req, res) => {
 });
 
 router.get('/orders', (req, res) => {
-  getUserById(req.session.user_id).then((user) => {
-    if (user.role === "res") {
-      getOrders().then((orders) => {
-        const cleanOrders = orderProcessing(orders);
-
-        return res.json({ cleanOrders });
-      });
-    } else {
-      return res.redirect("/");
-    }
+  getOrders(4).then((orders) => {
+    return res.json({ orders });
   });
 });
+
+router.post('/order-details', (req, res) => {
+  getOrderDetailsByIdRestaurant(req.body.orderId).then((order) => {
+    return res.json({ order });
+  });
+});
+
 
 router.post('/conn', (req, res) => {
   setSocketConnection(req.session.user_id, req.body.conn).then((data) => {

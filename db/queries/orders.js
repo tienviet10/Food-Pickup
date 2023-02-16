@@ -1,19 +1,27 @@
 const db = require("../connection");
 
-const getOrders = () => {
+const getOrders = (ownerId) => {
+  // return db
+  //   .query(
+  //     "SELECT dishes.name AS dish_name, order_id, quantity, users.name AS customer_name, orders.status AS status FROM orders JOIN order_details ON orders.id = order_id JOIN users ON user_id = users.id JOIN dishes ON dish_id = dishes.id;"
+  //   )
+  //   .then((data) => {
+  //     return data.rows;
+  //   });
   return db
     .query(
-      "SELECT dishes.name AS dish_name, order_id, quantity, users.name AS customer_name, orders.status AS status FROM orders JOIN order_details ON orders.id = order_id JOIN users ON user_id = users.id JOIN dishes ON dish_id = dishes.id;"
+      "SELECT orders.id, orders.expected_completion, orders.status, orders.receipt_id, orders.total_payment, orders.order_date, users.name FROM restaurants JOIN orders ON restaurants.id = restaurant_id JOIN users ON users.id = user_id WHERE restaurants.owner_id = $1;", [ownerId]
     )
     .then((data) => {
       return data.rows;
     });
+
 };
 
 const getSpecificOrder = (orderId) => {
   return db
     .query(
-      "SELECT dishes.name AS dish_name, order_id, quantity, users.name AS customer_name, orders.status AS status FROM orders JOIN order_details ON orders.id = order_id JOIN users ON user_id = users.id JOIN dishes ON dish_id = dishes.id WHERE order_id = $1;", [orderId]
+      "SELECT orders.id, orders.expected_completion, orders.status, orders.receipt_id, orders.total_payment, orders.order_date, users.name FROM restaurants JOIN orders ON restaurants.id = restaurant_id JOIN users ON users.id = user_id WHERE orders.id = $1;", [orderId]
     )
     .then((data) => {
       return data.rows;
@@ -115,5 +123,15 @@ const getOrderDetailsById = (customerId, orderId) => {
     });
 };
 
+const getOrderDetailsByIdRestaurant = (orderId) => {
+  return db
+    .query(
+      "SELECT dishes.name AS dish_name, order_id, quantity, dishes.price FROM orders JOIN order_details ON orders.id = order_id JOIN users ON user_id = users.id JOIN dishes ON dish_id = dishes.id WHERE orders.id = $1;", [orderId]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
 
-module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt, getACustomersOrders, getOrderDetailsById };
+
+module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt, getACustomersOrders, getOrderDetailsById, getOrderDetailsByIdRestaurant };

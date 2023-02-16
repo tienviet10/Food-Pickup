@@ -62,8 +62,8 @@ router.get('/stripe-info', (req, res) => {
         getOwnerSMS(1).then((owner) => {
           sendTextMessage(owner['phone_number'], "NEW ORDER!");
           getSpecificOrder(sameOrder.id).then((data) => {
-            const cleanOrders = orderProcessing(data);
-            req.io.sockets.to(owner['socket_conn']).emit('receive-message', cleanOrders);
+            // const cleanOrders = orderProcessing(data);
+            req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
             stripe.paymentMethods.list({
               customer: `${order.cus_id}`,
               type: 'card',
@@ -72,7 +72,7 @@ router.get('/stripe-info', (req, res) => {
                 savePaymentInfo(req.session.user_id, card.id, card.card.last4);
               }
             });
-            //res.json({ message: "success" });
+
             res.redirect('/customers/menu-page');
           });
         });
@@ -103,9 +103,10 @@ router.post('/stored-cards-payment', (req, res) => {
         if (order) {
           getOwnerSMS(1).then((owner) => {
             sendTextMessage(owner['phone_number'], "NEW ORDER!");
+            console.log(order);
             getSpecificOrder(order.id).then((data) => {
-              const cleanOrders = orderProcessing(data);
-              req.io.sockets.to(owner['socket_conn']).emit('receive-message', cleanOrders);
+              //const cleanOrders = orderProcessing(data);
+              req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
               //setReceipt(order.id, paymentIntent.id);
               return res.json({ message: "success" });
             });
