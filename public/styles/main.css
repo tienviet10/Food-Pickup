@@ -106,6 +106,8 @@
   transition: .5s;
   color: black !important;
   background-color: #47566133;
+  margin-top: 13px!important;
+  margin-bottom: 10px!important;
 }
 .service-item:hover div p,
 .service-item:hover div h5{
@@ -114,7 +116,6 @@
 }
 
 .service-item:hover {
-  /* background: #aebb6f6f; */
   background-color: transparent!important;
   cursor: pointer;
 }
@@ -214,10 +215,31 @@
   border-right: none;
 }
 .foodwise-text {
+  margin-top: 13px!important;
   color: #f5ce5a!important;
 
 }
 
 .foodwise-text :hover{
   color:black;
+}
+.commentcontainer{
+  border: 3px solid #183a1d4f!important;
+  margin-top: 13px!important;
+  padding: 10px!important;
+  margin-bottom: 10px!important;
+  box-shadow: -1px 0px 10px 1px #c9c9c95c!important;
+  border-radius: 19px!important;
+  font-size: large;
+  -ms-transform: scale(0.9); /* IE 9 */
+  -webkit-transform: scale(0.9); /* Safari 3-8 */
+  transform: scale(0.9);
+}
+
+.commentcontainer:hover {
+  background:#4756611f;
+  cursor: pointer;
+  -ms-transform: scale(0.93); /* IE 9 */
+  -webkit-transform: scale(0.93); /* Safari 3-8 */
+  transform: scale(0.93);
 }

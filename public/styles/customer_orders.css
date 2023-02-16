@@ -133,3 +133,7 @@ float: left;
 margin-top: 10px;
 font-size: 13px;
 }
+.nav-pills .nav-link.active {
+  color: #fff;
+  background-color: #ff00c3;
+}
