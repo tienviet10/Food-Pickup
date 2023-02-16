@@ -63,7 +63,8 @@ router.post('/register', (req, res) => {
         return addNewUser(req.body.name, req.body.email, password, req.body.phone_number, customer.id)
           .then(user => {
             if (user) {
-              res.redirect("/");
+              req.session.user_id = user.id;
+              res.redirect("/customers/menu-page");
             }
           });
       });
