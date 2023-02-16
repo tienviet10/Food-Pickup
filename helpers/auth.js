@@ -7,6 +7,7 @@ const auth = (role, io) => {
         req.io = io;
         next();
       } else {
+        req.session = null;
         res.redirect('/');
       }
     });

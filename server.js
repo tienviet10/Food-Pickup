@@ -33,8 +33,8 @@ const { auth } = require('./helpers/auth');
 
 
 app.use('/auth', authRoutes);
-app.use('/api/customers',auth("cus", io), customerApiRoutes);
-app.use('/api/restaurants',auth("res", io), restaurantApiRoutes);
+app.use('/api/customers', auth("cus", io), customerApiRoutes);
+app.use('/api/restaurants', auth("res", io), restaurantApiRoutes);
 app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
