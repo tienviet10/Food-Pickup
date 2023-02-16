@@ -144,7 +144,7 @@
                             <form class="form d-flex justify-content-center align-items-center">
                               <input data-id="<%= dish.id %>" data-name="<%= dish.dish_name %>"
                                 data-price="<%= dish.price %>" type="number" name="quantity" style="width: 50px"
-                                placeholder="0" min="0"
+                                placeholder="0" min="0" max="50"
                                 oninput='this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null'
                                 value="0" />
                               <button type="submit" class="btn btn-outline-success addorder ml-2" data-mdb-ripple-color="dark"
