@@ -126,8 +126,8 @@ $(() => {
               //`Elements` instance that was used to create the Payment Element
               elements,
               confirmParams: {
-                // return_url: `https://www.foodwise.live/api/customers/stripe-info`,
-                return_url: `http://localhost:8080/api/customers/stripe-info`,
+                return_url: `https://www.foodwise.live/api/customers/stripe-info`,
+                // return_url: `http://localhost:8080/api/customers/stripe-info`,
               },
             });
 
