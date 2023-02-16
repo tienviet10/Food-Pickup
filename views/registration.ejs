@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/login_page.css" type="text/css" />
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,33 +29,42 @@
 
 <body>
   <%- include('partials/_header', {user}) %>
-    <main style="margin: 1em;">
-      <div class="container">
-        <div class="d-flex flex-column align-items-center mt-5">
-          <h3>Create Account</h3>
-          <form class="form" action="/auth/register" method="POST">
-            <div class="form-group mt-4">
-              <label for="name">Name:</label>
-              <input class="form-control" type="text" name="name" style="width: 300px" />
-            </div>
-            <div class="form-group mt-4">
-              <label for="phone_number">Phone Number:</label>
-              <input class="form-control" type="tel" name="phone_number" style="width: 300px" />
-            </div>
-            <div class="form-group mt-4">
-              <label for="email">Email:</label>
-              <input class="form-control" type="email" name="email" style="width: 300px" />
-            </div>
-            <div class="form-group mt-4">
-              <label for="password">Password:</label>
-              <input class="form-control" type="password" name="password" style="width: 300px" />
-            </div>
-            <button type="submit" class="btn btn-danger mt-4">Register</button>
-          </form>
-        </div>
-      </div>
-    </main>
+  <div class="main">
 
+    <section class="signup">
+        <img src="images/signup-bg.jpg" alt="">
+        <div class="container">
+            <div class="signup-content">
+                <form method="POST" action="/auth/register" id="signup-form" action="" class="signup-form">
+                    <h2 class="form-title">Create account</h2>
+                    <div class="form-group">
+                        <input type="text" required class="form-input" name="name" id="name" placeholder="Your Name"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" required class="form-input" name="email" id="email" placeholder="Your Email"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required class="form-input" name="phone_number" id="phone_number" placeholder="Your Phone Number"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" required class="form-input" name="password" id="password" placeholder="Password"/>
+                      <span toggle="#password" class="fa fa-eye field-icon toggle-password"></span>
+                  </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                    </div>
+                </form>
+                <p class="loginhere">
+                    Have an account already? <a href="/auth/login" class="loginhere-link">Login here</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+<!-- "fa fa-eye field-icon toggle-password" -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
