@@ -10,9 +10,9 @@ INSERT INTO
   )
 VALUES
   (
-    'Fusion',
-    'fusion@gmail.com',
-    '1234567890',
+    'Fryer',
+    'fryer@gmail.com',
+    '6478889392',
     '207 Ossington Ave, Toronto, ON M6J 2Z8',
     5,
     'https://khaugully.ca/?gclid=CjwKCAiA85efBhBbEiwAD7oLQBfl7dW0PyBJOyoCICLEcadd5LXy-80y_ggA77SGnb0R5d7VZMVyqRoCo0IQAvD_BwE',

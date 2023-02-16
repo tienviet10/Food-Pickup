@@ -20,13 +20,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/home_page.css" type="text/css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
 
   <!-- JS -->
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -39,7 +41,7 @@
 
 <body>
 
-  <div class="container-xxl bg-white p-0">
+  <div class="container-xxl bg-f3f9ff maincontainer p-0">
     <%- include('partials/_spinner', {user}) %>
     <%- include('partials/_header') %>
 
@@ -50,14 +52,12 @@
           <div class="container my-5 py-5">
             <div class="row align-items-center g-5">
               <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
-                <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam
-                  ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
-                  justo magna dolore erat amet</p>
-                <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+                <h1 class="display-3 text-white animated slideInLeft">Say 'hello' to<br>Food Wise</h1>
+                <p class="text-white animated slideInLeft mb-4 pb-2">Food Wise helps save time and gives you an opportunity to dig into Toronto's amazing food choices which are full of amazing foodie spots that range from spectacular fine dining experiences to family-run restaurant businesses that have built a cult following, and everything in between.</p>
+                <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Sign up here !</a>
               </div>
-              <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                <img class="img-fluid" src="https://pbs.twimg.com/media/FdOKEa7aMAEqq9K?format=jpg&name=large" alt="">
+              <div class="col-lg-6 text-center text-lg-end overflow-hidden"style="padding:26px">
+                <img class="img-fluid" src="images/Food-Wise.png" alt="">
               </div>
             </div>
           </div>
@@ -73,36 +73,36 @@
           <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="service-item rounded pt-3">
               <div class="p-4">
-                <i class="fa fa-3x fa-user-tie mb-4"></i>
+                <i class="fa fa-3x fa-user-tie foodwise-text mb-4"></i>
                 <h5>Master Chefs</h5>
-                <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                <p>We have master chefs located right here in the GTA, named champions preparing your meals</p>
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="service-item rounded pt-3">
               <div class="p-4">
-                <i class="fa fa-3x fa-utensils mb-4"></i>
-                <h5>Quality Food</h5>
-                <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                <i class="fa fa-3x fa-utensils foodwise-text mb-4"></i>
+                <h5>Secure</h5>
+                <p>We have taken proactive steps so you don’t have to worry about your private information</p>
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+          <div class="col-lg-3 col-sm-6 wow service-wow fadeInUp" data-wow-delay="0.5s">
             <div class="service-item rounded pt-3">
-              <div class="service-div p-4">
-                <i class="fa fa-3x fa-cart-plus mb-4"></i>
-                <h5>Online Order</h5>
-                <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+              <div class="p-4">
+                <i class="fa fa-3x fa-cart-plus foodwise-text mb-4"></i>
+                <h5>Fast & Reliable</h5>
+                <p>The only thing better than a good mood is good food made on time with incredible prompt service</p>
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
             <div class="service-item rounded pt-3">
               <div class="p-4">
-                <i class="fa fa-3x fa-headset mb-4"></i>
-                <h5>24/7 Service</h5>
-                <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                <i class="fa fa-3x fa-headset foodwise-text mb-4"></i>
+                <h5>24/7 Customer Service</h5>
+                <p>Our dedicated support team offers 24 hour customer support, customer service is our number one priority!</p>
               </div>
             </div>
           </div>
@@ -117,33 +117,40 @@
       <div class="container">
         <div class="row g-5 align-items-center">
           <div class="col-lg-6">
-            <div class="row g-3">
-              <div class="col-6 text-start">
-                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="images/other logo2.png" alt="First slide">
               </div>
-              <div class="col-6 text-start">
-                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="img/about-2.jpg"
-                  style="margin-top: 25%;">
+              <div class="carousel-item">
+                <img class="d-block w-100" src="images/other logo1.png" alt="Second slide">
               </div>
-              <div class="col-6 text-end">
-                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="img/about-3.jpg">
+              <div class="carousel-item">
+                <img class="d-block w-100" src="images/other logo3.png" alt="Third slide">
               </div>
-              <div class="col-6 text-end">
-                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="img/about-4.jpg">
+              <div class="carousel-item">
+                <img class="d-block w-100" src="images/our-logo.png" alt="Fourth slide">
               </div>
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon color:bllack;" aria="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
           </div>
           <div class="col-lg-6">
-            <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
-            <h1 class="mb-4">Welcome to <i class="fa fa-utensils text-primary me-2"></i>Restoran</h1>
-            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos
-              erat ipsum et lorem et sit, sed stet lorem sit.</p>
-            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.
-              Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+            <h5 class="section-title ff-secondary text-start foodwise-text fw-normal">About Us</h5>
+            <h1 class="mb-4">Welcome to <i class="fa fa-utensils foodwise-text me-2"></i>Food Wise</h1>
+            <p class="mb-4">Are you planning on grabbing a bite, or breakfast before work, or even catering to a private event? We offer the most reliable and secure services at very cost-effective rates. We are the number one selected service in Toronto and also the number one recommended. We just can't be beaten. We have catering, breakfast, lunch, dinner, baked goods, florist services, and even wellness baskets from your favorite local businesses.</p>
+            <p class="mb-4">Anything you want to buy in person you can pick up without the long waits or waiting for the prep time so you can get going to where ever promptly. No need to contact the restaurants in advance to request special services when you have food wiser do all the work for you. We have over 30 years in the industry and always maintain an excellent relationship with all reputable businesses and customers. We can help you decide with our vast options on our amazing app!</p>
             <div class="row g-4 mb-4">
               <div class="col-sm-6">
                 <div class="d-flex align-items-center border-start border-5 border-primary px-3">
-                  <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">15</h1>
+                  <h1 class="flex-shrink-0 display-5 foodwise-text mb-0" data-toggle="counter-up">15</h1>
                   <div class="ps-4">
                     <p class="mb-0">Years of</p>
                     <h6 class="text-uppercase mb-0">Experience</h6>
@@ -152,7 +159,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="d-flex align-items-center border-start border-5 border-primary px-3">
-                  <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">50</h1>
+                  <h1 class="flex-shrink-0 display-5 foodwise-text mb-0" data-toggle="counter-up">60+</h1>
                   <div class="ps-4">
                     <p class="mb-0">Popular</p>
                     <h6 class="text-uppercase mb-0">Master Chefs</h6>
@@ -172,55 +179,55 @@
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
       <div class="container">
         <div class="text-center">
-          <h5 class="section-title ff-secondary text-center text-primary fw-normal">Testimonial</h5>
-          <h1 class="mb-5">Our Clients Say!!!</h1>
+          <h5 class="section-title ff-secondary text-center foodwise-text fw-normal">Testimonial</h5>
+          <h1 class="mb-5">Here's What Our Clients Have To Say!!!</h1>
         </div>
         <div class="owl-carousel testimonial-carousel">
           <div class="testimonial-item bg-transparent border rounded p-4">
-            <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-            <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+            <i class="fa fa-quote-left fa-2x foodwise-text mb-3"></i>
+            <p>I love Food Wise, it never disappoints 😛😛😛😛</p>
             <div class="d-flex align-items-center">
-              <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-1.jpg"
+              <img class="img-fluid flex-shrink-0 rounded-circle" src="images/Drake-hands.png"
                 style="width: 50px; height: 50px;">
               <div class="ps-3">
-                <h5 class="mb-1">Client Name</h5>
-                <small>Profession</small>
+                <h5 class="mb-1">Drake</h5>
+                <small>🙏🏽6ix God🙏🏽</small>
               </div>
             </div>
           </div>
           <div class="testimonial-item bg-transparent border rounded p-4">
-            <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-            <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+            <i class="fa fa-quote-left fa-2x foodwise-text mb-3"></i>
+            <p>Food Wise is the easy way to get our food out the door the second its made and not have any delays or inconveniences with amazing discounts.</p>
             <div class="d-flex align-items-center">
-              <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-2.jpg"
+              <img class="img-fluid flex-shrink-0 rounded-circle" src="images/Davs.png"
                 style="width: 50px; height: 50px;">
               <div class="ps-3">
-                <h5 class="mb-1">Client Name</h5>
-                <small>Profession</small>
+                <h5 class="mb-1">Davs Hotspot</h5>
+                <small>Restaurant</small>
               </div>
             </div>
           </div>
           <div class="testimonial-item bg-transparent border rounded p-4">
-            <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-            <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+            <i class="fa fa-quote-left fa-2x foodwise-text mb-3"></i>
+            <p>When you find something you like you just add it to your cart and make your way to your favorite restaurant! Saves me so much time in between my errands.</p>
             <div class="d-flex align-items-center">
-              <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-3.jpg"
+              <img class="img-fluid flex-shrink-0 rounded-circle" src="images/pink-clouds.avif"
                 style="width: 50px; height: 50px;">
               <div class="ps-3">
-                <h5 class="mb-1">Client Name</h5>
-                <small>Profession</small>
+                <h5 class="mb-1">Jessica Torre</h5>
+                <small>@jessicaTorre</small>
               </div>
             </div>
           </div>
           <div class="testimonial-item bg-transparent border rounded p-4">
-            <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-            <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+            <i class="fa fa-quote-left fa-2x foodwise-text mb-3"></i>
+            <p>Our customers are able to walk in smiling and leave even happier then they walked in.</p>
             <div class="d-flex align-items-center">
-              <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-4.jpg"
+              <img class="img-fluid flex-shrink-0 rounded-circle" src="images/cluckclucks.jpeg"
                 style="width: 50px; height: 50px;">
               <div class="ps-3">
-                <h5 class="mb-1">Client Name</h5>
-                <small>Profession</small>
+                <h5 class="mb-1">Cluck Clucks</h5>
+                <small>Restaurant</small>
               </div>
             </div>
           </div>

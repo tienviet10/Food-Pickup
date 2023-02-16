@@ -22,13 +22,16 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main_page.css" type="text/css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/footer.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/customorders.css" type="text/css" />
 
   <!-- JS -->
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -44,65 +47,59 @@
 </head>
 
 <body>
-  <div class="container-xxl bg-white p-0">
+  <div class="container-xxl bg-white maincontainer p-0">
     <%- include('partials/_spinner') %>
     <%- include('partials/_header', {user}) %>
 
-      <section id="gtco-welcome" class="bg-white section-padding">
+      <section id="gtco-welcome" class="mainsectionback">
         <div class="container">
           <div class="section-content">
             <div class="row">
-              <div id="restaurant-picture"
-                class="col-sm-5 img-bg d-flex shadow align-items-center justify-content-center justify-content-md-end img-2 mt-5 rounded"
-                style="background-image: url(https://static6.businessinsider.com/image/5436f70569beddc5719cf92b-1200/25-girl-and-the-goat-chicago.jpg); height: 520px;">
-
-              </div>
+              <img id="restaurant-picture"
+              src="/images/our-logo.png"
+                class="col-sm-5 img-bg mainimage d-flex shadow align-items-center justify-content-center justify-content-md-end img-2 mt-5 rounded"
+                style=" height: 520px; padding: 0px;"/>
               <div class="col-sm-7 py-5 pl-md-0 pl-4">
                 <div class="heading-section pl-lg-5 ml-md-5">
-                  <span class="subheading">
-                    About
-                    <%= user %>
+                  <span class="aboutus" style=" font-size: large">
+                    About us...
                   </span>
-                  <h2>
+                  <h2 class="welcome">
                     Welcome to <%= restaurant[0].name %>
                   </h2>
 
                 </div>
-                <div class="pl-lg-5 ml-md-5">
-                  <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
-                    have been rewritten a thousand times and everything that was left from its origin would be the word
-                    "and" and the Little Blind Text should turn around and return to its own, safe country. A small
-                    river
-                    named Duden flows. </p>
+                <div class="pl-lg-5 ml-md-5 " style=" font-size: large; padding-top: 31px;">
+                  <p>We are GTA’s top spot and number one recommended when it comes to a more healthy alternative to cooking. If you guessed air fryer… you’re right, everything on our menu is made with the love of our favorite house appliance THE AIR FRYER! You get the same amazing-tasting meal with very little oil used in our kitchen(we never lack that amazing crunch). Your meals are cooked at a greater speed and fast meals are always guaranteed. </p>
                   <p> Address: <%= restaurant[0].address %>
                   </p>
                   <p> Phone: <%= restaurant[0].phone_number %>
                   </p>
                   <div class="special-dishes">
                     <h3 class="mt-2">Special Recipe</h3>
-                    <div class="row mt-3">
+                    <div class="row mt-3 speacials">
                       <div class="col-4">
                         <a href="#" class="thumb-menu">
-                          <img class="img-fluid img-cover rounded"
-                            src="https://hips.hearstapps.com/hmg-prod/images/delish-190618-air-fryer-fried-chicken-361-landscape-pf-1561574618.png?crop=0.668xw:1.00xh;0.0867xw,0&resize=1200:*"
-                            style="height:150px" />
-                          <h6>Australian Organic Beef</h6>
+                          <img class="img-fluid img-cover salmon rounded"
+                            src="https://pbs.twimg.com/media/FhOd2xjVsAA9HtP?format=jpg&name=900x900"
+                            style="height:150px; width:150px;" />
+                          <h6>Australian Organic Salmon</h6>
                         </a>
                       </div>
                       <div class="col-4">
                         <a href="#" class="thumb-menu">
-                          <img class="img-fluid img-cover rounded"
-                            src="https://i.pinimg.com/736x/a0/96/23/a0962332f9445b2779e138aca6eb312a--masala-spice-magic-box.jpg"
-                            style="height:150px" />
-                          <h6>Australian Organic Beef</h6>
+                          <img class="img-fluid img-cover spiceblend rounded"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWN1gz1OjEpltIzca7Xi_qMtgwXImwzVQq9w&usqp=CAU"
+                            style="height:150px; width:150px;" />
+                          <h6>Rich Spice Blends</h6>
                         </a>
                       </div>
                       <div class="col-4">
                         <a href="#" class="thumb-menu">
-                          <img class="img-fluid img-cover rounded"
-                            src="https://assets.bonappetit.com/photos/5c619a0408be415aeb84b702/1:1/w_2560%2Cc_limit/Spice-Drawer-Chicken-Wings.jpg"
-                            style="height:150px" />
-                          <h6>Australian Organic Beef</h6>
+                          <img class="img-fluid img-cover deals rounded"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcrh9psdkY2TsU5di8Ql8NfyI1h7Tu9X8SFCgIMd49KF8_oZGeT-Z6jkKsU1zrjcj1cwo&usqp=CAU"
+                            style="height:150px; width:150px;" />
+                          <h6>Amazing Deals & Discounts</h6>
                         </a>
                       </div>
                     </div>
@@ -120,7 +117,7 @@
         <div class="container">
           <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
-            <h1 class="mb-5">Most Popular Items</h1>
+            <h1 class="mb-5 popularItems">Most Popular Items</h1>
           </div>
           <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
             <div class="tab-content">
@@ -135,11 +132,11 @@
                         <div class="w-100 d-flex flex-column pl-4">
 
                           <div class="d-flex border-bottom pb-2 justify-content-between">
-                            <div class="d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center dishchoice align-items-center">
                               <h5>
                                 <%= dish.dish_name %>
                               </h5>
-                              <h5 class="text-primary pl-2">$<%= dish.price %>
+                              <h5 class="dishprice pl-2">$<%= dish.price %>
                               </h5>
                             </div>
 
@@ -149,14 +146,15 @@
                                 placeholder="0" min="0"
                                 oninput='this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null'
                                 value="0" />
-                              <button type="submit" class="btn btn-outline-success ml-2" data-mdb-ripple-color="dark"
+                              <button type="submit" class="btn btn-outline-success addorder ml-2" data-mdb-ripple-color="dark"
                                 style="height: 37px; width:37px;" data-id="<%= dish.id %>">
-                                <i class="fa-solid fa-plus"></i>
+                                <i class="fa-solid fa-plus "></i>
                               </button>
                             </form>
                           </div>
                           <div class="d-flex">
-                            <small class="text-start">
+                            <small class="description" style="color: #495057;"
+                            >
                               <%= dish.description %>
                             </small>
                           </div>

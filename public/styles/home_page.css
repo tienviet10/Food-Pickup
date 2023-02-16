@@ -1,13 +1,17 @@
 /*** Hero Header ***/
 .hero-header {
-  background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url('https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-03/plant-based-food-mc-220323-02-273c7b.jpg');
+  background: linear-gradient(rgb(126, 181, 166, .9), rgba(15, 23, 43, .9)), url('https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-03/plant-based-food-mc-220323-02-273c7b.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .hero-header img {
-  animation: imgRotate 50s linear infinite;
+  animation: imgRotate 30s linear infinite;
+  border-radius: 76%;
+  width: 350px;
+  height: 350px;
+  box-shadow: 0px 0px 20px 5px #105351;
 }
 
 @keyframes imgRotate {
@@ -27,7 +31,7 @@
 }
 
 .service-item:hover {
-  background: var(--foodwise-primary);
+  background: #d3d6c49e !important;
 }
 
 .service-item * {
@@ -35,7 +39,7 @@
 }
 
 .service-item:hover * {
-  color: var(--light) !important;
+  color: var(--foodwise-light) !important;
 }
 
 /*** Testimonial ***/
@@ -50,7 +54,7 @@
 }
 
 .testimonial-carousel .owl-item.center .testimonial-item * {
-  color: var(--light) !important;
+  color: var(--foodwise-light) !important;
 }
 
 .testimonial-carousel .owl-dots {
