@@ -41,6 +41,7 @@ app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
 app.get('/', (req, res) => {
   const templateVar = { user: false };
+  req.session = null;
   res.render('home_page', templateVar);
 });
 
