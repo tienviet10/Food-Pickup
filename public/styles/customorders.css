@@ -1,0 +1,113 @@
+.addorder{
+  height: 37px;
+  width: 37px;
+  color: black!important;
+  background-color: #f5ce5a!important;
+}
+/* .btn-outline-success {
+  color: #a75f28;
+  border-color: #2605e0;
+      box-shadow: -1px 1px 20px 14px #0c54605e !important
+} */
+
+.mainimage{
+  box-shadow: -1px 1px 20px 14px #0c54605e !important;
+}
+.section-title {
+  position: relative;
+  display: inline-block;
+ color: #f5ce5a!important;
+}
+.special-dishes{
+  color:#486266;
+  font-size: 3.75rem;
+}
+.speacials h6
+{
+  color:#495057;
+}
+.aboutus{
+  color:#495057;
+}
+.desrciption
+{
+  color:red;
+}
+.dishchoice{
+  color:#486266;
+}
+.dishprice{
+ color: #856404;
+}
+.salmon{
+  -ms-transform: scale(0.9); /* IE 9 */
+  -webkit-transform: scale(0.9); /* Safari 3-8 */
+  transform: scale(0.9);
+  border-color: #f5ce5a;
+  border: 3px solid #0c546063;
+  border-radius: 35px;
+}
+.salmon:hover{
+  -ms-transform: scale(1.0); /* IE 9 */
+  -webkit-transform: scale(1.0); /* Safari 3-8 */
+  transform: scale(1.0);
+  border-radius: 10px;
+  border-color: #f5ce5a;
+  border: 3px solid #0c546063;
+  border-radius: 35px;
+  box-shadow: -1px 1px 20px 5px #0c54605e !important;
+}
+.spiceblend{
+  -ms-transform: scale(0.9); /* IE 9 */
+  -webkit-transform: scale(0.9); /* Safari 3-8 */
+  transform: scale(0.9);
+  border-color: #f5ce5a;
+  border: 3px solid #0c546063;
+  border-radius: 35px;
+
+}
+.spiceblend:hover
+{
+  -ms-transform: scale(1.0); /* IE 9 */
+  -webkit-transform: scale(1.0); /* Safari 3-8 */
+  transform: scale(1.0);
+  border-radius: 10px;
+  border-color: #f5ce5a;
+  border: 3px solid #0c546063;
+  border-radius: 35px;
+  box-shadow: -1px 1px 20px 5px #0c54605e !important;
+}
+.deals{
+  -ms-transform: scale(0.9); /* IE 9 */
+  -webkit-transform: scale(0.9); /* Safari 3-8 */
+  transform: scale(0.9);
+  border-color: #f5ce5a;
+  border: 3px solid #0c546063;
+  border-radius: 35px;
+}
+.deals:hover
+{
+  -ms-transform: scale(1.0); /* IE 9 */
+  -webkit-transform: scale(1.0); /* Safari 3-8 */
+  transform: scale(1.0);
+  border-radius: 10px;
+  border-color: #f5ce5a;
+  border: 3px solid #0c546063;
+  border-radius: 35px;
+  box-shadow: -1px 1px 20px 5px #0c54605e !important;
+}
+
+.subheading{
+  color: #f5ce5a!important;
+}
+.welcome{
+  color: #5c4501;
+  text-shadow: 0px 1px 25px #85640457 !important;
+}
+.popularItems{
+  color: #5c4501;
+  text-shadow: 0px 1px 25px #85640457 !important;
+}
+.mainsectionback{
+  background: #dee2e6;
+}
