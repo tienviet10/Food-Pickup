@@ -30,7 +30,7 @@ const authRoutes = require('./routes/auth');
 const customersRoutes = require('./routes/customers');
 const restaurantsRoutes = require('./routes/restaurants');
 const { auth } = require('./helpers/auth');
-
+const { getUserById } = require('./db/queries/users');
 
 app.use('/auth', authRoutes);
 app.use('/api/customers', auth("cus", io), customerApiRoutes);
@@ -40,9 +40,14 @@ app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
 
 app.get('/', (req, res) => {
-  const templateVar = { user: false };
-  req.session = null;
-  res.render('home_page', templateVar);
+  getUserById(req.session.user_id).then((data) => {
+    if (!data) {
+      req.session = null;
+    }
+    const templateVar = { user: false };
+    return res.render('home_page', templateVar);
+  });
+
 });
 
 app.get('*', (req, res) => {

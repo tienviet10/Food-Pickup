@@ -1,28 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { sendTextMessage } = require('../helpers/sms');
-const { orderProcessing } = require('../helpers/orders');
 const { placeOrder, getSpecificOrder, getTempReceipt, setReceipt, getACustomersOrders, getOrderDetailsById } = require('../db/queries/orders');
 const { getOwnerSMS, setSocketConnection, getUserById } = require('../db/queries/users');
 const { savePaymentInfo, getPaymentsById, getAPaymentById } = require('../db/queries/payment');
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
-
-// router.post('/place-order', (req, res) => {
-//   placeOrder(req.session.user_id, req.body).then((order) => {
-//     if (order) {
-//       getOwnerSMS(1).then((owner) => {
-//         sendTextMessage(owner['phone_number'], "NEW ORDER!");
-
-//         getSpecificOrder(order.id).then((data) => {
-//           const cleanOrders = orderProcessing(data);
-//           req.io.sockets.to(owner['socket_conn']).emit('receive-message', cleanOrders);
-//         });
-//       });
-
-//       return res.json({ message: "success" });
-//     }
-//   });
-// });
 
 
 router.post('/conn', (req, res) => {
@@ -33,8 +15,9 @@ router.post('/conn', (req, res) => {
 });
 
 router.post('/request-payment', (req, res) => {
+  console.log("first");
   const info = JSON.parse(req.body.data);
-
+  console.log(info);
   getUserById(req.session.user_id).then((user) => {
     stripe.paymentIntents.create({
       customer: user.cus_id,
@@ -61,7 +44,6 @@ router.get('/stripe-info', (req, res) => {
         getOwnerSMS(1).then((owner) => {
           sendTextMessage(owner['phone_number'], "NEW ORDER!");
           getSpecificOrder(sameOrder.id).then((data) => {
-            // const cleanOrders = orderProcessing(data);
             req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
             stripe.paymentMethods.list({
               customer: `${order.cus_id}`,
@@ -102,9 +84,7 @@ router.post('/stored-cards-payment', (req, res) => {
         if (order) {
           getOwnerSMS(1).then((owner) => {
             sendTextMessage(owner['phone_number'], "NEW ORDER!");
-
             getSpecificOrder(order.id).then((data) => {
-              //const cleanOrders = orderProcessing(data);
               req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
               //setReceipt(order.id, paymentIntent.id);
               return res.json({ message: "success" });
@@ -124,7 +104,6 @@ router.get('/orders', (req, res) => {
 });
 
 router.post('/order-details', (req, res) => {
-
   getOrderDetailsById(req.session.user_id, req.body.orderId).then((order) => {
     return res.json({ order });
   });

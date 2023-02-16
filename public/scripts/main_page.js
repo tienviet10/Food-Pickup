@@ -94,6 +94,7 @@ $(() => {
       $('#modal-cards-area').empty();
       $('#cards-btn').css('display', 'none');
       $('#add-card-btn').css('display', 'flex');
+      console.log(sentVar);
       $.post('/api/customers/request-payment', { data: JSON.stringify(sentVar) })
         .done((response) => {
           // foodCart = {};
@@ -126,8 +127,8 @@ $(() => {
               //`Elements` instance that was used to create the Payment Element
               elements,
               confirmParams: {
-                return_url: `https://www.foodwise.live/api/customers/stripe-info`,
-                // return_url: `http://localhost:8080/api/customers/stripe-info`,
+                //return_url: `https://www.foodwise.live/api/customers/stripe-info`,
+                return_url: `http://localhost:8080/api/customers/stripe-info`,
               },
             });
 
