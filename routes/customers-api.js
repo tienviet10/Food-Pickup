@@ -89,6 +89,7 @@ router.get('/payment-methods', (req, res) => {
 });
 
 router.post('/stored-cards-payment', (req, res) => {
+  console.log("first");
   const info = JSON.parse(req.body.data);
   getAPaymentById(req.session.user_id, info.creditcard).then((payment) => {
     stripe.paymentIntents.create({

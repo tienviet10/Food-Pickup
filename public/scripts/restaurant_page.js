@@ -6,6 +6,8 @@ $(() => {
     loadOrders();
   });
 
+  $('#pay-order-btn').css('display', 'none');
+
   // Spinner
   const spinner = function() {
     setTimeout(function() {

@@ -183,57 +183,56 @@ $(() => {
         });
     });
 
-    $('#place-order-2').on('click', function() {
-      $(this).prop('disabled', true);
-      $('#modal-spinner').css('display', 'flex');
-      const chosenCreditCard = $('input:radio[name=credit-card-number]:checked').val();
-      console.log(chosenCreditCard);
-      const finalOrder = {};
-      for (const dishId in foodCart) {
-        finalOrder[dishId] = foodCart[dishId].quantity;
-      }
+  });
 
-      const sentVar = {
-        finalOrder,
-        totalPayment,
-        creditcard: chosenCreditCard,
-      };
+  $('#place-order-2').on('click', function() {
+    $(this).prop('disabled', true);
+    $('#modal-spinner').css('display', 'flex');
+    const chosenCreditCard = $('input:radio[name=credit-card-number]:checked').val();
+    console.log(chosenCreditCard);
+    const finalOrder = {};
+    for (const dishId in foodCart) {
+      finalOrder[dishId] = foodCart[dishId].quantity;
+    }
 
-      $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
-        .done((response) => {
-          console.log(response);
-          foodCart = {};
-          totalPayment = 0;
-          $('#cart-badge').css('visibility', 'hidden');
-          $('#modal-spinner').css('display', 'none');
-          $(this).prop('disabled', false);
-          $("#close-modal-2").click();
-        });
+    const sentVar = {
+      finalOrder,
+      totalPayment,
+      creditcard: chosenCreditCard,
+    };
 
-    });
-
-    $('#customer-cards').on('click', function() {
-      $('#add-new-cards').removeClass("active");
-      $(this).addClass("active");
-      $.get("/api/customers/payment-methods").then(data => {
+    $.post('/api/customers/stored-cards-payment', { data: JSON.stringify(sentVar) })
+      .done((response) => {
+        console.log(response);
+        foodCart = {};
+        totalPayment = 0;
+        $('#cart-badge').css('visibility', 'hidden');
         $('#modal-spinner').css('display', 'none');
-        $('#cards-btn').css('display', 'flex');
-        $('#add-card-btn').css('display', 'none');
-        $('#modal-cards-area').empty();
-        $('#payment-element').empty();
-        for (const paymentIndex in data.payments) {
-          $('#modal-cards-area').append(`
-          <div class="form-check m-2">
-          <input class="form-check-input" type="radio" name="credit-card-number" id="flexRadioDefault_${data.payments[paymentIndex].id}" value="${data.payments[paymentIndex].id}" ${paymentIndex === '0' ? 'checked' : ''}>
-          <label class="form-check-label" for="flexRadioDefault_${data.payments[paymentIndex].id}">
-            **** **** **** ${data.payments[paymentIndex].last4}
-          </label>
-        </div>
-          `);
-        }
+        $(this).prop('disabled', false);
+        $("#close-modal-2").click();
       });
-    });
+  });
 
+  $('#customer-cards').on('click', function() {
+    $('#add-new-cards').removeClass("active");
+    $(this).addClass("active");
+    $.get("/api/customers/payment-methods").then(data => {
+      $('#modal-spinner').css('display', 'none');
+      $('#cards-btn').css('display', 'flex');
+      $('#add-card-btn').css('display', 'none');
+      $('#modal-cards-area').empty();
+      $('#payment-element').empty();
+      for (const paymentIndex in data.payments) {
+        $('#modal-cards-area').append(`
+        <div class="form-check m-2">
+        <input class="form-check-input" type="radio" name="credit-card-number" id="flexRadioDefault_${data.payments[paymentIndex].id}" value="${data.payments[paymentIndex].id}" ${paymentIndex === '0' ? 'checked' : ''}>
+        <label class="form-check-label" for="flexRadioDefault_${data.payments[paymentIndex].id}">
+          **** **** **** ${data.payments[paymentIndex].last4}
+        </label>
+      </div>
+        `);
+      }
+    });
   });
 
   socket.on('connect', () => {
@@ -244,7 +243,7 @@ $(() => {
 
   socket.on("receive-message", () => {
     console.log("Order confirmed");
-
+    $('.toast').toast('show');
   });
 
   $('.form').on('submit', function(event) {
