@@ -133,3 +133,10 @@ float: left;
 margin-top: 10px;
 font-size: 13px;
 }
+
+@media (max-width: 991.98px) {
+  .toast {
+    top: 10px !important;
+    right: 10px !important;
+  }
+}

@@ -67,8 +67,13 @@
 
 }
 
-/* .foodwise-text :hover{
-  color:rgb(113, 44, 44);
-} */
 
+@media (max-width: 991.98px) {
+  .copy-right {
+    padding-top: 3rem !important;
+  }
+}
 
+@media (min-width: 992px) {
+
+}
