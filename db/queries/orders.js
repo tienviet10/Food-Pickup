@@ -10,7 +10,7 @@ const getOrders = (ownerId) => {
   //   });
   return db
     .query(
-      "SELECT orders.id, orders.expected_completion, orders.status, orders.receipt_id, orders.total_payment, orders.order_date, users.name FROM restaurants JOIN orders ON restaurants.id = restaurant_id JOIN users ON users.id = user_id WHERE restaurants.owner_id = $1;", [ownerId]
+      "SELECT orders.id, orders.expected_completion, orders.status, orders.receipt_id, orders.total_payment, orders.order_date, users.name FROM restaurants JOIN orders ON restaurants.id = restaurant_id JOIN users ON users.id = user_id WHERE orders.payment_completion = true AND restaurants.owner_id = $1;", [ownerId]
     )
     .then((data) => {
       return data.rows;
@@ -28,11 +28,12 @@ const getSpecificOrder = (orderId) => {
     });
 };
 
-const placeOrder = (userId, orders, receiptId, totalAmount) => {
+const placeOrder = (userId, orders, receiptId, totalAmount, existingCard) => {
+  const isCompleted = existingCard === 'new-card' ? false : true;
   return db
     .query(
-      "INSERT INTO orders (user_id, restaurant_id, expected_completion, status, receipt_id, total_payment) VALUES ($1, 1, NULL, 'pending', $2, $3) RETURNING *;",
-      [userId, receiptId, totalAmount]
+      "INSERT INTO orders (user_id, restaurant_id, expected_completion, status, receipt_id, total_payment, payment_completion) VALUES ($1, 1, NULL, 'pending', $2, $3, $4) RETURNING *;",
+      [userId, receiptId, totalAmount, isCompleted]
     )
     .then((data) => {
 
@@ -75,7 +76,7 @@ const completeOrder = (orderId) => {
 const setReceipt = (orderId, receipt) => {
   return db
     .query(
-      `UPDATE orders SET receipt_id = $1 WHERE id = $2
+      `UPDATE orders SET receipt_id = $1, payment_completion = true WHERE id = $2
      RETURNING *;`,
       [receipt, orderId]
     )
@@ -99,7 +100,7 @@ const getTempReceipt = (receiptId) => {
 const getACustomersOrders = (customerId) => {
   return db
     .query(
-      "SELECT orders.id, restaurants.name, expected_completion, status, total_payment, order_date FROM orders JOIN restaurants ON restaurants.id = restaurant_id WHERE user_id = $1", [customerId]
+      "SELECT orders.id, restaurants.name, expected_completion, status, total_payment, order_date FROM orders JOIN restaurants ON restaurants.id = restaurant_id WHERE orders.payment_completion = true AND user_id = $1", [customerId]
     )
     .then((data) => {
       return data.rows;

@@ -8,5 +8,6 @@ CREATE TABLE orders (
   status VARCHAR(100) NOT NULL,
   receipt_id TEXT,
   total_payment DECIMAL(6, 2),
+  payment_completion BOOLEAN NOT NULL DEFAULT FALSE,
   order_date TIMESTAMP NOT NULL DEFAULT NOW()
 );

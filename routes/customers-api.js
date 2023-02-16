@@ -45,7 +45,7 @@ router.post('/request-payment', (req, res) => {
         enabled: true,
       },
     }).then((paymentIntent) => {
-      placeOrder(req.session.user_id, info.finalOrder, paymentIntent.client_secret, info.totalPayment).then((order) => {
+      placeOrder(req.session.user_id, info.finalOrder, paymentIntent.client_secret, info.totalPayment, 'new-card').then((order) => {
         if (order) {
           return res.json({ client_secret: paymentIntent.client_secret });
         }
@@ -98,7 +98,7 @@ router.post('/stored-cards-payment', (req, res) => {
       off_session: true,
       confirm: true,
     }).then((paymentIntent) => {
-      placeOrder(req.session.user_id, info.finalOrder, paymentIntent.id, info.totalPayment).then((order) => {
+      placeOrder(req.session.user_id, info.finalOrder, paymentIntent.id, info.totalPayment, 'stored-card').then((order) => {
         if (order) {
           getOwnerSMS(1).then((owner) => {
             sendTextMessage(owner['phone_number'], "NEW ORDER!");

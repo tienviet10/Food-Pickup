@@ -234,3 +234,12 @@
     right: 10px !important;
   }
 }
+
+.modal {
+  max-height: 90vh;
+
+  overflow: auto !important;
+}
+body.modal-open {
+  overflow: hidden;
+}
