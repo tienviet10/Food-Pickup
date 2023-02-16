@@ -21,15 +21,16 @@ $(() => {
   };
   spinner();
 
+  // socket
   socket.on('connect', () => {
     $.post('/api/customers/conn', { conn: socket.id });
   });
-
 
   socket.on("receive-message", (message) => {
     console.log(message);
     $('.toast-body').text(message);
     $('.toast').toast('show');
+    loadCustomerOrders();
   });
 
   $(() => {
