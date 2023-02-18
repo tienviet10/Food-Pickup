@@ -77,6 +77,12 @@
 **Dev-dependencies**
 - [Nodemon](https://nodemon.io/)
 
+## Database
+The PostgreSQL schema ERD:
+
+![erd drawio](https://user-images.githubusercontent.com/70352144/219846314-26bc5242-2914-4366-8ba4-7aefb2503f68.png)
+
+
 ## Getting Started
 
 **Prerequisites:**
