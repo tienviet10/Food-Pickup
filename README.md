@@ -18,6 +18,8 @@
 
 ## Final Product
 1. Home Page:
+  - Designed with Bootstrap and CSS
+  - Cool features: a spinning animation of our FoodWise logo, and carousel with multiple restaurant logos
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif">
@@ -37,7 +39,7 @@
   - Schedule jobs for execution at specific dates (<a href="https://www.npmjs.com/package/node-schedule">node-schedule</a>)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/70352144/219843060-bf6a0c68-7ab8-4c4b-98fa-e8095db863f7.gif">
+  <img src="https://user-images.githubusercontent.com/70352144/219843163-097a2f9c-8ed4-40bc-81bb-c2a7278b826b.gif">
 </p>
 
 4. SMS Message (notification):
