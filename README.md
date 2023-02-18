@@ -22,7 +22,7 @@
   - Cool features: a spinning animation of our FoodWise logo, and carousel with multiple restaurant logos
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif">
+  <img src="https://user-images.githubusercontent.com/70352144/219843616-d99d0547-5a8f-446b-bf9c-c9fbbf5ece21.gif">
 </p>
 
 2. Menu page (Customer view):
