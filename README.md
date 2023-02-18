@@ -27,7 +27,8 @@
 2. Main menu page:
   - Stripe payment (add a new credit card or use a stored credit card)
 
-![CED62CD9-520F-4702-B763-49FA05AB263E](https://user-images.githubusercontent.com/70352144/219830788-a79ff0d1-37e0-43eb-8785-e375fef72a97.gif)
+![4ED32300-A905-4951-9A3A-6F06451047F9](https://user-images.githubusercontent.com/70352144/219830872-a23d4ed3-3114-4548-bc17-252a40400abe.gif)
+
 
   - Live in-app notification (Socket io)
   - Live ordering system (<a href="https://www.twilio.com/">Socket.io</a>)
