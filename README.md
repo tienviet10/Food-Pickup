@@ -19,8 +19,8 @@
 
 ## Final Product
 1. Home Page:
-2. 
-![Screen Recording 2023-02-17 at 10 41 11 PM](https://user-images.githubusercontent.com/70352144/219830191-761cb7e4-4a24-4e0b-9332-f0b9d6501b70.gif)
+
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif)
 
 
 
@@ -28,7 +28,7 @@
   - Stripe payment (add a new credit card or use a stored credit card)
   - Live in-app notification (Socket io)
   - Live ordering system (Socket io)
-  - 
+  - SMS communication through a modern telecomm API (<a href="https://www.twilio.com/">Twilio</a>)
   - node schedule
 
 
