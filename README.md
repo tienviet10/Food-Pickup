@@ -18,7 +18,17 @@
 
 
 ## Final Product
+1. Home Page:
+![Screen Recording 2023-02-17 at 10 41 11 PM](https://user-images.githubusercontent.com/70352144/219830191-761cb7e4-4a24-4e0b-9332-f0b9d6501b70.gif)
 
+
+
+2. Main menu page:
+  - Stripe payment (add a new credit card or use a stored credit card)
+  - Live in-app notification (Socket io)
+  - Live ordering system (Socket io)
+  - 
+  - node schedule
 
 
 ## Dependencies
