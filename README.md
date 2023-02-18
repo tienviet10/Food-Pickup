@@ -20,19 +20,16 @@
 1. Home Page:
 
 <p align="center">
-  
   <img src="https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif">
 </p>
-
 
 2. Menu page (Customer view):
   - Stripe payment (add a new credit card or use a stored credit card)
   - Custom middleware to protect routes
 
 <p align="center">
-  ![4ED32300-A905-4951-9A3A-6F06451047F9](https://user-images.githubusercontent.com/70352144/219830872-a23d4ed3-3114-4548-bc17-252a40400abe.gif)
+  <img src="https://user-images.githubusercontent.com/70352144/219830872-a23d4ed3-3114-4548-bc17-252a40400abe.gif">
 </p>
-
 
 3. Restaurant owner (Rstaurant view):
   - Ordering system powered by a real-time, bi-directional communication (<a href="https://socket.io">Socket.io</a>)
