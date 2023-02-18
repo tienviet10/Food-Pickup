@@ -72,6 +72,7 @@
 - [socket.io](https://socket.io/)
 - [stripe](https://stripe.com/en-ca)
 - [twilio](https://www.twilio.com/)
+- [jQuery](https://jquery.com)
 
 **Dev-dependencies**
 - [Nodemon](https://nodemon.io/)
