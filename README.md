@@ -152,7 +152,7 @@ $ npm run local
 ## Authors
 - <a href="https://github.com/tienviet10">Viet Tran</a>
 - <a href="https://github.com/knoori-code">Khalid Noori</a>
-- <a href="">Amaal Ali</a>
+- <a href="https://github.com/AmaalAli03">Amaal Ali</a>
 
 ## Acknowledgement
 - Home page and restaurant page was created based on a template designed by <a href="https://htmlcodex.com">HTML Codex</a> and distributed by <a href="https://themewagon.com">ThemeWagon</a>.
