@@ -40,7 +40,7 @@ router.get('/stripe-info', (req, res) => {
     return getTempReceipt(req.query.payment_intent_client_secret).then((order) => {
       setReceipt(order.id, req.query.payment_intent).then((sameOrder) => {
         getOwnerSMS(1).then((owner) => {
-          sendTextMessage(owner['phone_number'], "NEW ORDER!");
+          sendTextMessage(owner['phone_number'], "You have received a new order!");
           getSpecificOrder(sameOrder.id).then((data) => {
             req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
             stripe.paymentMethods.list({
@@ -81,10 +81,9 @@ router.post('/stored-cards-payment', (req, res) => {
       placeOrder(req.session.user_id, info.finalOrder, paymentIntent.id, info.totalPayment, 'stored-card').then((order) => {
         if (order) {
           getOwnerSMS(1).then((owner) => {
-            sendTextMessage(owner['phone_number'], "NEW ORDER!");
+            sendTextMessage(owner['phone_number'], "You have received a new order!");
             getSpecificOrder(order.id).then((data) => {
               req.io.sockets.to(owner['socket_conn']).emit('receive-message', data);
-              //setReceipt(order.id, paymentIntent.id);
               return res.json({ message: "success" });
             });
           });

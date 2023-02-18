@@ -172,7 +172,7 @@ $(() => {
 
   socket.on("receive-message", (data) => {
     $('.toast').toast('show');
-    $('.toast-body').text('NEW ORDER!');
+    $('.toast-body').text('You have received a new order!');
     renderOrders(data, "new");
   });
 

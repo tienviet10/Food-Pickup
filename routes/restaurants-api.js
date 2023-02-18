@@ -15,15 +15,15 @@ router.post("/accept-order", (req, res) => {
       const expectedCompletion = new Date(dateInSecond * 1000);
 
       getUserSMS(orderId).then((owner) => {
-        req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Order Confirmed!");
+        req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Your order has been confirmed!");
         console.log("Set schedule job");
         schedule.scheduleJob(expectedCompletion, () => {
           completeOrder(orderId).then((data) => {
             if (data) {
-              sendTextMessage(owner['phone_number'], "Your Order is READY!");
+              sendTextMessage(owner['phone_number'], "Your order is ready for pickup. Thank you for choosing FoodWise!");
 
               getUserSMS(orderId).then((owner) => {
-                req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Your order is READY!!");
+                req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Your food is now ready for pick up!");
               });
             }
           });
