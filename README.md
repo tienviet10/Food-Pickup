@@ -20,7 +20,8 @@
 1. Home Page:
 
 <p align="center">
-  ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif)
+  
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif">
 </p>
 
 
