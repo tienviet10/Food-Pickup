@@ -12,6 +12,7 @@
   <a href="#dependencies">Dependencies</a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#deployment">Deployment</a> •
+  <a href="#authors">Authors</a> •
   <a href="#acknowledgement">Acknowledgement</a>
 </p>
 
@@ -147,6 +148,11 @@ $ npm run local
 ## Deployment
 - Deployed to <a href="https://railway.app/">Railway.app</a>
 - Postgres Database hosted by <a href="https://railway.app/">Railway.app</a>.
+
+## Authors
+- <a href="https://github.com/tienviet10">Viet Tran</a>
+- <a href="https://github.com/knoori-code">Khalid Noori</a>
+- <a href="">Amaal Ali</a>
 
 ## Acknowledgement
 - Home page and restaurant page was created based on a template designed by <a href="https://htmlcodex.com">HTML Codex</a> and distributed by <a href="https://themewagon.com">ThemeWagon</a>.
