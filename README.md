@@ -16,24 +16,30 @@
 </p>
 
 
-
 ## Final Product
 1. Home Page:
 
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif)
+<p align="center">
+  ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/70352144/219830594-544df17c-c820-4aab-98e3-cd2245b7cea6.gif)
+</p>
 
 
-
-2. Main menu page:
+2. Menu page (Customer view):
   - Stripe payment (add a new credit card or use a stored credit card)
+  - Custom middleware to protect routes
 
-![4ED32300-A905-4951-9A3A-6F06451047F9](https://user-images.githubusercontent.com/70352144/219830872-a23d4ed3-3114-4548-bc17-252a40400abe.gif)
+<p align="center">
+  ![4ED32300-A905-4951-9A3A-6F06451047F9](https://user-images.githubusercontent.com/70352144/219830872-a23d4ed3-3114-4548-bc17-252a40400abe.gif)
+</p>
 
 
-  - Live in-app notification (Socket io)
-  - Live ordering system (<a href="https://www.twilio.com/">Socket.io</a>)
+3. Restaurant owner (Rstaurant view):
+  - Ordering system powered by a real-time, bi-directional communication (<a href="https://socket.io">Socket.io</a>)
+  - Live in-app notification with <a href="https://socket.io">Socket.io</a>
+  - Schedule jobs for execution at specific dates (<a href="https://www.npmjs.com/package/node-schedule">node-schedule</a>)
+
+4. SMS Message (notification):
   - SMS communication through a modern telecomm API (<a href="https://www.twilio.com/">Twilio</a>)
-  - node schedule
 
 
 ## Dependencies
@@ -99,7 +105,7 @@ $ cd Food-Pickup
 $ npm install
 ```
 
-6. Create a .env file according to the .env.sample file. Fill out the PORT, password (for the default user: user@example.com), and the secret keys for cookie session. For instance: 
+6. Create a .env file according to the template below
 
 ```sh
 STRIPE_PRIVATE_KEY=
@@ -116,7 +122,7 @@ DB_PORT=5432
 API=http://localhost:8080/
 ```
 
-7. Run the development web server
+7. Reset the database
 
 ```sh
 $ npm run db:reset
