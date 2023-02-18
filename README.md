@@ -36,6 +36,10 @@
   - Live in-app notification with <a href="https://socket.io">Socket.io</a>
   - Schedule jobs for execution at specific dates (<a href="https://www.npmjs.com/package/node-schedule">node-schedule</a>)
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/70352144/219843060-bf6a0c68-7ab8-4c4b-98fa-e8095db863f7.gif">
+</p>
+
 4. SMS Message (notification):
   - SMS communication through a modern telecomm API (<a href="https://www.twilio.com/">Twilio</a>)
 
