@@ -99,7 +99,6 @@ $(() => {
           function(data, status) {
             $(`#${removeForm}`).empty();
             timer(expectedCompletion * 1000, $timerField, $statusField);
-            //$currentOrder.remove();
           }
         );
       });
@@ -151,7 +150,6 @@ $(() => {
   };
 
   const renderOrders = function(orders, type) {
-    //const $mainContainer = $('.restaurant-container');
     const $mainContainer = $('.table-body-restaurant-order');
     if (type === "all") {
       $mainContainer.empty();

@@ -13,69 +13,6 @@ list-type-ulli {
   padding: 0;
 }
 
-/* Montserrat-300 - latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 300;
-  src: url("../fonts/montserrat/Montserrat-Light.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/montserrat/Montserrat-Regular.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 400;
-  src: url("../fonts/montserrat/Montserrat-Italic.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 500;
-  src: url("../fonts/montserrat/Montserrat-Medium.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 600;
-  src: url("../fonts/montserrat/Montserrat-SemiBold.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/montserrat/Montserrat-Bold.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 700;
-  src: url("../fonts/montserrat/Montserrat-BoldItalic.ttf");
-  /* IE9 Compat Modes */
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 900;
-  src: url("../fonts/montserrat/montserrat-v12-latin-900.ttf"), url("../fonts/montserrat/montserrat-v12-latin-900.eot") format("embedded-opentype"), url("../fonts/montserrat/montserrat-v12-latin-900.svg") format("woff2"), url("../fonts/montserrat/montserrat-v12-latin-900.woff") format("woff"), url("../fonts/montserrat/montserrat-v12-latin-900.woff2") format("truetype");
-}
 
 a:focus,
 a:active {
@@ -289,27 +226,8 @@ body {
   font-weight: 500;
 }
 
-/* .form-input:focus {
-  border: 5.3px  solid transparent;
-  -webkit-border-image-source: -webkit-linear-gradient(to right, #9face6, #74ebd5);
-  -moz-border-image-source: -moz-linear-gradient(to right, #9face6, #74ebd5);
-  -o-border-image-source: -o-linear-gradient(to right, #9face6, #a474eb);
-  border-image-source: linear-gradient(to right, #8a8d9b, #ffedb7);
-  -webkit-border-image-slice: 1;
-  border-image-slice: 1;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-} */
-
 .form-input:focus::-webkit-input-placeholder {
   color: #222;
-  /* color: yellow !important; */
-  /* background-color:#0000000f; */
 }
 
 .form-input:focus::-moz-placeholder {
@@ -344,7 +262,6 @@ body {
   background-image: -o-linear-gradient(to left, #74ebd5, #9face6);
   background-image: -webkit-linear-gradient(to left, #74ebd5, #9face6);
   background-image: linear-gradient(to left, #f0eac9, #a5b2a7);
-  /* color: yellow !important; */
 }
 
 .form-submit:hover {
@@ -484,6 +401,3 @@ input[type=checkbox]:not(old):checked+label>span:before {
     padding: 50px 25px;
   }
 }
-
-
-/*# sourceMappingURL=style.css.map */

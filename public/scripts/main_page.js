@@ -104,9 +104,7 @@ $(() => {
       console.log(sentVar);
       $.post('/api/customers/request-payment', { data: JSON.stringify(sentVar) })
         .done((response) => {
-          // foodCart = {};
-
-          const options = {
+           const options = {
             clientSecret: response.client_secret,
             // Fully customizable with appearance API.
             appearance: {/*...*/ },
