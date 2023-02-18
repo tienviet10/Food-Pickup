@@ -80,7 +80,7 @@
 ## Database
 The PostgreSQL schema ERD:
 
-![erd drawio (1)](https://user-images.githubusercontent.com/70352144/219846997-3fa23575-12f2-47a6-9af1-8aed75d9353a.png)
+![erd drawio](https://user-images.githubusercontent.com/70352144/219879689-1f86f9a3-32ff-4e2a-a4c3-7570066f0c38.png)
 
 
 ## Getting Started
