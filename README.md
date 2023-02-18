@@ -45,6 +45,7 @@
 4. SMS Message (notification):
   - SMS communication through a modern telecomm API (<a href="https://www.twilio.com/">Twilio</a>)
 
+![Twilio](https://user-images.githubusercontent.com/70352144/219844238-0931757d-6a83-4201-8a8c-cad31eb2d669.png)
 
 ## Dependencies
 
