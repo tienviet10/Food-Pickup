@@ -33,8 +33,9 @@ exports.registerNewUser = (req, res) => {
         req.session.user_id = user.id;
         res.redirect("/customers/menu-page");
       }
+      throw 'User not found!';
     }).catch((e) => {
-      console.log('Error in creating Stripe customer');
+      console.log(e);
     });
   }
 };
@@ -57,7 +58,6 @@ exports.logUserIntoSystem = (req, res) => {
   }
   res.json({ error: "Email or password was not found!" });
 };
-
 
 exports.logout = (req, res) => {
   req.session = null;

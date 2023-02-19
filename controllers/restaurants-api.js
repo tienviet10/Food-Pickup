@@ -3,6 +3,7 @@ const { getUserSMS, setSocketConnection } = require("../db/queries/users");
 const { getOrders, getOrderDetailsByIdRestaurant } = require('../db/queries/orders');
 const { setCronSchedule } = require('../helpers/restaurants');
 
+// Restaurant owner accept order with order preparation time
 exports.acceptANewOrder = (req, res) => {
   const dateInSecond = req.body.expectedCompletion;
   const expectedCompletion = new Date(dateInSecond * 1000);

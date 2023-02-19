@@ -1,4 +1,3 @@
-// load .env data into process.env
 require('dotenv').config();
 
 // Web server config
@@ -9,11 +8,11 @@ const cookieSession = require('cookie-session');
 const PORT = process.env.PORT || 8080;
 const app = express();
 
+// Set up socket io
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
-
 app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
@@ -23,7 +22,7 @@ app.use(cookieSession({
   keys: [process.env.SESSIONKEY1, process.env.SESSIONKEY2],
 }));
 
-// Separated Routes for each Resource
+
 const customerApiRoutes = require('./routes/customers-api');
 const restaurantApiRoutes = require('./routes/restaurants-api');
 const authRoutes = require('./routes/auth');
@@ -32,7 +31,7 @@ const restaurantsRoutes = require('./routes/restaurants');
 const { auth, roleValidate } = require('./helpers/auth');
 const { returnHomePage } = require('./controllers/home');
 
-
+// Separated Routes for each Resource
 app.use('/auth', authRoutes);
 app.use('/api/customers', auth("cus", io), customerApiRoutes);
 app.use('/api/restaurants', auth("res", io), restaurantApiRoutes);

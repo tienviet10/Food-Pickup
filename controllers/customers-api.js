@@ -12,6 +12,7 @@ exports.saveNewSocketConn = (req, res) => {
   });
 };
 
+// Get payment intent for frontend before paying
 exports.requestStripePaymentIntent = (req, res) => {
   const info = JSON.parse(req.body.data);
   let clientSecret = '';
@@ -31,6 +32,7 @@ exports.requestStripePaymentIntent = (req, res) => {
   });
 };
 
+// Customer paid using a stored credit card in Stripe
 exports.payUsingStoredCards = (req, res) => {
   const info = JSON.parse(req.body.data);
   let orderId = '';
@@ -63,6 +65,7 @@ exports.payUsingStoredCards = (req, res) => {
   });
 };
 
+// After payment, Stripe send back a response which is used in the route
 exports.confirmStripePayment = (req, res) => {
   if (req.query.redirect_status === 'succeeded') {
     let cusOrder = null;
@@ -73,7 +76,7 @@ exports.confirmStripePayment = (req, res) => {
         return setReceipt(order.id, req.query.payment_intent);
       }
       throw 'No order was found!';
-    }).then((sameOrder) => {
+    }).then(() => {
       return getOwnerSMS(1);
     }).then((owner) => {
         if (owner && cusOrder) {
