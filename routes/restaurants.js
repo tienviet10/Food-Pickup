@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { returnRestaurantPage } = require("../controllers/restaurants");
 
-router.get("/restaurant-order", (req, res) => {
-  const templateVar = { user: true };
-  res.render("restaurant_page", templateVar);
-});
+router.get("/restaurant-order", returnRestaurantPage);
 
 module.exports = router;

@@ -97,7 +97,7 @@ const getTempReceipt = (receiptId) => {
     });
 };
 
-const getACustomersOrders = (customerId) => {
+const getACustomerOrders = (customerId) => {
   return db
     .query(
       "SELECT orders.id, restaurants.name, expected_completion, status, total_payment, order_date FROM orders JOIN restaurants ON restaurants.id = restaurant_id WHERE orders.payment_completion = true AND user_id = $1", [customerId]
@@ -135,4 +135,4 @@ const getOrderDetailsByIdRestaurant = (orderId) => {
 };
 
 
-module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt, getACustomersOrders, getOrderDetailsById, getOrderDetailsByIdRestaurant };
+module.exports = { getOrders, placeOrder, acceptOrder, completeOrder, getSpecificOrder, setReceipt, getTempReceipt, getACustomerOrders, getOrderDetailsById, getOrderDetailsByIdRestaurant };

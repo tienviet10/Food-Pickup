@@ -6,7 +6,6 @@ const savePaymentInfo = (userId, paymentMethod, last4) => {
       "SELECT last4 FROM payment WHERE user_id = $1 AND last4 = $2", [userId, last4]
     )
     .then((data) => {
-
       if (data.rowCount === 0) {
         return db
           .query(

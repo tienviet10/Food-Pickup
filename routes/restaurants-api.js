@@ -1,59 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { acceptOrder, completeOrder } = require("../db/queries/orders");
-const { getUserSMS, setSocketConnection } = require("../db/queries/users");
-const { sendTextMessage } = require('../helpers/sms');
-const { getOrders, getOrderDetailsByIdRestaurant } = require('../db/queries/orders');
+const { acceptANewOrder, getAllRestaurantOrders, getAOrderDetails, storeANewSocketConn } = require("../controllers/restaurants-api");
 
-const schedule = require('node-schedule');
+router.get('/orders', getAllRestaurantOrders);
 
-router.post("/accept-order", (req, res) => {
-  const dateInSecond = req.body.expectedCompletion;
-  const orderId = req.body.orderId;
-  acceptOrder(dateInSecond, orderId).then((data) => {
-    if (data) {
-      const expectedCompletion = new Date(dateInSecond * 1000);
+router.post("/accept-order", acceptANewOrder);
 
-      getUserSMS(orderId).then((owner) => {
-        req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Your order has been confirmed!");
-        console.log("Set schedule job");
-        schedule.scheduleJob(expectedCompletion, () => {
-          completeOrder(orderId).then((data) => {
-            if (data) {
-              sendTextMessage(owner['phone_number'], "Your order is ready for pickup. Thank you for choosing FoodWise!");
+router.post('/order-details', getAOrderDetails);
 
-              getUserSMS(orderId).then((owner) => {
-                req.io.sockets.to(owner['socket_conn']).emit('receive-message', "Your food is now ready for pick up!");
-              });
-            }
-          });
-        });
-      });
-
-      return res.json({ message: "success" });
-    }
-  });
-});
-
-router.get('/orders', (req, res) => {
-  getOrders(4).then((orders) => {
-    return res.json({ orders });
-  });
-});
-
-router.post('/order-details', (req, res) => {
-  getOrderDetailsByIdRestaurant(req.body.orderId).then((order) => {
-    return res.json({ order });
-  });
-});
-
-
-router.post('/conn', (req, res) => {
-  setSocketConnection(req.session.user_id, req.body.conn).then((data) => {
-    console.log("stored socket id for restaurant");
-  });
-  res.json({ message: "success" });
-});
-
+router.post('/conn', storeANewSocketConn);
 
 module.exports = router;

@@ -7,6 +7,7 @@ $(() => {
     }
   });
 
+  //password toggling
   $(".toggle-password").click(function() {
     $(this).toggleClass("fa-eye fa-eye-slash");
     const input = $($(this).attr("toggle"));

@@ -29,8 +29,9 @@ const restaurantApiRoutes = require('./routes/restaurants-api');
 const authRoutes = require('./routes/auth');
 const customersRoutes = require('./routes/customers');
 const restaurantsRoutes = require('./routes/restaurants');
-const { auth } = require('./helpers/auth');
-const { getUserById } = require('./db/queries/users');
+const { auth, roleValidate } = require('./helpers/auth');
+const { returnHomePage } = require('./controllers/home');
+
 
 app.use('/auth', authRoutes);
 app.use('/api/customers', auth("cus", io), customerApiRoutes);
@@ -38,17 +39,7 @@ app.use('/api/restaurants', auth("res", io), restaurantApiRoutes);
 app.use('/customers', auth("cus", null), customersRoutes);
 app.use('/restaurants', auth("res", null), restaurantsRoutes);
 
-
-app.get('/', (req, res) => {
-  getUserById(req.session.user_id).then((data) => {
-    if (!data) {
-      req.session = null;
-    }
-    const templateVar = { user: false };
-    return res.render('home_page', templateVar);
-  });
-
-});
+app.get('/', roleValidate, returnHomePage);
 
 app.get('*', (req, res) => {
   res.redirect("/");

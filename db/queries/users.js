@@ -22,7 +22,7 @@ const getUserById = (id) => {
     });
 };
 
-const addNewUser = (name, email, password, phoneNumber, cusId) => {
+const addANewUserDatabase = (name, email, password, phoneNumber, cusId) => {
   return db.query(`INSERT INTO users (name, email, password, phone_number, role, cus_id)
 VALUES ($1, $2, $3, $4, 'cus', $5)
 RETURNING * ; `, [name, email, password, phoneNumber, cusId])
@@ -60,4 +60,4 @@ SELECT users.phone_number, users.socket_conn From users JOIN orders ON user_id =
 };
 
 
-module.exports = { getUsers, getUserByEmail, getUserById, addNewUser, getOwnerSMS, getUserSMS, setSocketConnection };
+module.exports = { getUsers, getUserByEmail, getUserById, addANewUserDatabase, getOwnerSMS, getUserSMS, setSocketConnection };

@@ -3,14 +3,13 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 const sendTextMessage = (phone, description) => {
-  client.messages
+  return client.messages
     .create({
       to: phone,
       from: process.env.TWILIO_PHONE,
       body: description,
     })
-    .then((message) => console.log(`Message SID ${message.sid}`))
-    .catch((error) => console.error(error));
+    .then((message) => console.log(`Message SID ${message.sid}`));
 };
 
 module.exports = { sendTextMessage };
